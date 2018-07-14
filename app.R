@@ -24,7 +24,19 @@ ui <- fluidPage(
                         color: #AA0A3C;
                     }
                     
-                    "))
+                    ")),
+    # Custom shiny to javascript binding
+    # scrolls "outDiv" to bottom once called
+    tags$script(
+      '
+      Shiny.addCustomMessageHandler("scrollToCalPlot",
+        function(arg1) {
+          $(\'html, body\').animate({
+          scrollTop: $("#calendarPlot").offset().top
+            }, 1000);
+        }
+      );'
+    )
     ),
 
   fluidRow(
@@ -97,14 +109,14 @@ ui <- fluidPage(
     )
   ), 
   fluidRow(
-       mainPanel(
-          plotOutput("calendarPlot", height = "800px")
-       )
+     mainPanel(
+        plotOutput("calendarPlot", height = "800px")
+     )
   )
 )
 
 # Define server logic 
-server <- function(input, output) {
+server <- function(input, output, session) {
   # function for getting the next weekday (Sunday, Monday, etc) from a specific date,
   # if the input date matches that week day, it will just return the input date
   getNextWeekday<-function(inputDate, weekday, dateFormat ="%m/%d/%Y"){
@@ -1006,6 +1018,8 @@ server <- function(input, output) {
   #plotting calendar
   output$calendarPlot <- renderPlot({
     print(genCalPlotShow())
+    # Call custom javascript to scroll window
+    session$sendCustomMessage(type = "scrollToCalPlot", 1)
   })
   
   
@@ -1015,11 +1029,6 @@ server <- function(input, output) {
       paste(input$download_schedule_name, ".csv", sep = "")
     },
     content = function(file) {
-      # outputTable = data_frame(class = c(), 
-      #                          start_date = c(), 
-      #                          end_date = c())
-      
-      
       outputTable = genScheduleAllDays()
       write_csv(outputTable, file)
     }
