@@ -53,6 +53,7 @@ ui <- fluidPage(
       tags$p("Name of file when downloading schedule"),
       textInput("download_schedule_name", "Download Name",
                 value = "my_schedule"),
+      tags$h4("Thematic Section Order"),
       selectInput("schedule_select_sections", "Select Thematic Section Order:",
                   c("Family-Surgery-Medicine" = "Family-Surgery-Medicine",
                     "Family-Medicine-Surgery" = "Family-Medicine-Surgery",
@@ -60,6 +61,7 @@ ui <- fluidPage(
                     "Medicine-Surgery-Family" = "Medicine-Surgery-Family",
                     "Surgery-Medicine-Family" = "Surgery-Medicine-Family",
                     "Surgery-Family-Medicine" = "Surgery-Family-Medicine")),
+      tags$h4("Rotation Order for Each Section"),
       selectInput("schedule_select_family",   "Select Family Block Rotation Order:",
                   c("Peds-Family-Psych" = "Peds-Family-Psych",
                     "Peds-Psych-Family" = "Peds-Psych-Family",
@@ -731,7 +733,6 @@ server <- function(input, output, session) {
     
     # 
     if(blockOrder[1] %in% fourWeekBlocks){
-
       outputTable = bind_rows(outputTable,
                               data_frame(class = "Block1aFCEWeek",
                                          type = "FCE",
@@ -763,14 +764,12 @@ server <- function(input, output, session) {
       outputTable = bind_rows(outputTable,
                               data_frame(class = paste0("Block1b-", blockOrder[2]),
                                          type = "Clerkship",
-                                         days = seq(input$Block1b[1], input$Block1b[2], by = "days") ) )
-    }
+                                         days = seq(input$Block1b[1], input$Block1b[2], by = "days") ) )    }
 
     if(blockOrder[3] %in% fourWeekBlocks){
       outputTable = bind_rows(outputTable,
                               data_frame(class = "Block1cFCEWeek",
                                          type = "FCE",
-                                         type = "Clerkship",
                                          days = seq(input$Block1cFCEWeek[1], input$Block1cFCEWeek[2], by="days") ) )
       outputTable = bind_rows(outputTable,
                               data_frame(class = paste0("Block1c-", blockOrder[3]),
