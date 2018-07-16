@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './app.css';
 import { Message, Grid, Header, List } from 'semantic-ui-react';
 
-import { DateInput } from 'semantic-ui-calendar-react';
+import { DateInput, DatesRangeInput } from 'semantic-ui-calendar-react';
 import '../node_modules/semantic-ui-calendar-react/dist/css/calendar.min.css';
 
 class DateSelect extends React.Component {
@@ -23,6 +23,27 @@ class DateSelect extends React.Component {
               value={this.state.date}
               iconPosition="left"
               dateFormat="MMM DD, YYYY"
+              onChange={this.handleChange} />
+        );
+    }
+}
+
+class DateRangeSelect extends React.Component {
+    state = { datesRange: '' };
+
+    handleChange = (event, {name, value}) => {
+        if (this.state.hasOwnProperty(name)) {
+            this.setState({ [name]: value });
+        }
+    }
+
+    render() {
+        return (
+            <DatesRangeInput
+              name="datesRange"
+              placeholder="From - To"
+              value={this.state.datesRange}
+              iconPosition="left"
               onChange={this.handleChange} />
         );
     }
