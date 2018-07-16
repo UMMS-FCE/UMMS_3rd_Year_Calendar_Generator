@@ -14,6 +14,30 @@ const block1 = [
     { "summer_vacation" : ['2018-08-18', '2018-08-26']}
 ];
 
+const block2 = [
+    { "a_dates": ['2018-08-27', '2018-09-28'] },
+    { "b_dates": ['2018-10-01', '2018-10-31'] },
+    { "interstitial_3": '2018-11-01' },
+    { "careers_in_medicine_1": '2018-11-02' },
+    { "c_dates": ['2018-11-05', '2018-12-13']},
+    { "interstitial_4": '2018-12-14' },
+    { "interstitial_5": '2018-12-17' },
+    { "careers_in_medicine_2": '2018-12-18' },
+    { "winter_vacation": ['2018-12-19', '2019-01-01'] }
+];
+
+const block3 = [
+    { "interstitial_6": '2019-01-02' },
+    { "a_dates": ['2019-01-03', '2019-02-08'] },
+    { "b_dates": ['2019-02-11', '2019-03-15']},
+    { "spring_vacation": ['2019-03-16', '2019-03-24'] },
+    { "c_dates": ['2019-03-25', '2019-04-25'] },
+    { "careers_in_medicine_3": '2019-04-25' },
+    { "interstitial_7": '2019-04-26' }
+];
+
+
+
 class DateSelect extends React.Component {
     state = { date: 'July 5, 2018' };
 
