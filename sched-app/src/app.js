@@ -8,13 +8,6 @@ import '../node_modules/semantic-ui-calendar-react/dist/css/calendar.min.css';
 class DateSelect extends React.Component {
     state = { date: 'July 5, 2018' };
 
-    handleChange = (event, {name, value}) => {
-        if (this.state.hasOwnProperty(name)) {
-            console.log(name, value);
-            this.setState({ [name]: value });
-        }
-    }
-
     render() {
         return (
             <DateInput
@@ -23,19 +16,16 @@ class DateSelect extends React.Component {
               value={this.state.date}
               iconPosition="left"
               dateFormat="MMM DD, YYYY"
-              onChange={this.handleChange} />
+              onChange={(e, {name, value}) => {
+                  console.log(name, value);
+                  this.setState({ [name]: value })
+              }} />
         );
     }
 }
 
 class DateRangeSelect extends React.Component {
     state = { datesRange: '' };
-
-    handleChange = (event, {name, value}) => {
-        if (this.state.hasOwnProperty(name)) {
-            this.setState({ [name]: value });
-        }
-    }
 
     render() {
         return (
@@ -44,7 +34,10 @@ class DateRangeSelect extends React.Component {
               placeholder="From - To"
               value={this.state.datesRange}
               iconPosition="left"
-              onChange={this.handleChange} />
+              onChange={(e, {name, value}) => {
+                  console.log(name, value);
+                  this.setState({ [name]: value })
+              }} />
         );
     }
 }
