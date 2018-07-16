@@ -5,6 +5,15 @@ import { Message, Grid, Header, List } from 'semantic-ui-react';
 import { DateInput, DatesRangeInput } from 'semantic-ui-calendar-react';
 import '../node_modules/semantic-ui-calendar-react/dist/css/calendar.min.css';
 
+const block1 = [
+    { "a_dates": ['2018-05-07', '2018-06-08'] },
+    { "interstitial_1":  '2018-06-11' },
+    { "b_dates": ['2018-06-12', '2018-07-13']},
+    { "c dates": ['2018-07-16', '2018-08-16']},
+    { "interstitial_2": '2018-08-17' },
+    { "summer_vacation" : ['2018-08-18', '2018-08-26']}
+];
+
 class DateSelect extends React.Component {
     state = { date: 'July 5, 2018' };
 
@@ -15,7 +24,7 @@ class DateSelect extends React.Component {
               placeholder="Date"
               value={this.state.date}
               iconPosition="left"
-              dateFormat="MMM DD, YYYY"
+              dateFormat="MMMM DD, YYYY"
               onChange={(e, {name, value}) => {
                   console.log(name, value);
                   this.setState({ [name]: value })
@@ -34,6 +43,7 @@ class DateRangeSelect extends React.Component {
               placeholder="From - To"
               value={this.state.datesRange}
               iconPosition="left"
+              dateFormat="MMMM DD, YYYY"
               onChange={(e, {name, value}) => {
                   console.log(name, value);
                   this.setState({ [name]: value })
