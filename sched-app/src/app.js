@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
 import './app.css';
 import { Message, Grid, Header, List } from 'semantic-ui-react';
-import moment from 'moment';
 
 import { DateInput, DatesRangeInput } from 'semantic-ui-calendar-react';
 import '../node_modules/semantic-ui-calendar-react/dist/css/calendar.min.css';
+
+import Moment from 'moment';
+import { extendMoment } from 'moment-range';
+const moment = extendMoment(Moment);
 
 const block1 = [
     { "a_dates": ['2018-05-07', '2018-06-08'] },
@@ -137,6 +140,12 @@ class App extends Component {
         const d = moment(fces3["a"][0]);
         const weeks = getArrayOfWeeks(d);
         console.log(weeks);
+
+        const dr = moment.range(fces3["a"]);
+        console.log(fces3["a"]);
+        for (let day of dr.by('day')) {
+            console.log(day.format('YYYY-MM-DD'));
+        }
 
         return (
             <Grid>
