@@ -9,6 +9,9 @@ import Moment from 'moment';
 import { extendMoment } from 'moment-range';
 const moment = extendMoment(Moment);
 
+const StartDate = '2018-07-05';
+const EndDate = '2019-04-26';
+
 const block1 = [
     { "a_dates": ['2018-05-07', '2018-06-08'] },
     { "interstitial_1": ['2018-06-11'] },
@@ -76,7 +79,7 @@ const getArrayOfWeeks = (referenceDate, weeks = 6 ) => {
 
 
 class DateSelect extends React.Component {
-    state = { date: 'July 5, 2018' };
+    state = { date: StartDate };
 
     render() {
         return (
@@ -113,7 +116,7 @@ class DateRangeSelect extends React.Component {
     }
 }
 
-class StartDate extends Component {
+class ChooseStartDate extends Component {
     render() {
 	return (
             <Message icon>
@@ -137,14 +140,27 @@ class StartDate extends Component {
 
 class App extends Component {
     render() {
-        const d = moment(fces3["a"][0]);
-        const weeks = getArrayOfWeeks(d);
-        console.log(weeks);
+        if(0){
+            const d = moment(fces3["a"][0]);
+            const weeks = getArrayOfWeeks(d);
+            console.log(weeks);
 
-        const dr = moment.range(fces3["a"]);
-        console.log(fces3["a"]);
-        for (let day of dr.by('day')) {
-            console.log(day.format('YYYY-MM-DD'));
+            const dr = moment.range(fces3["a"]);
+            console.log(fces3["a"]);
+            for (let day of dr.by('day')) {
+                console.log(day.format('YYYY-MM-DD'));
+            }
+        }
+
+        const wy = moment.range(StartDate, EndDate);
+        for (let month of wy.by('month')) {
+            console.log(month.format('MMMM YYYY'));
+            const weeks = getArrayOfWeeks(month);
+            for( const week of weeks ){
+                for( const day of week){
+                    console.log(day.format('MMMM DD, YYYY'));
+                }
+            }
         }
 
         return (
@@ -157,7 +173,7 @@ class App extends Component {
 
               <Grid.Row>
                 <Grid.Column width={3}>
-                  <StartDate />
+                  <ChooseStartDate />
                 </Grid.Column>
               </Grid.Row>
             </Grid>
