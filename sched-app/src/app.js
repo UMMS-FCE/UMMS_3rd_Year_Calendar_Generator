@@ -5,9 +5,49 @@ import { Message, Grid, Header, List } from 'semantic-ui-react';
 import { DateInput, DatesRangeInput } from 'semantic-ui-calendar-react';
 import '../node_modules/semantic-ui-calendar-react/dist/css/calendar.min.css';
 
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
+
+// for date manipulation
 import Moment from 'moment';
 import { extendMoment } from 'moment-range';
 const moment = extendMoment(Moment);
+
+class Export extends Component {
+    printDocument() {
+        const input = document.getElementById('divToPrint');
+        html2canvas(input)
+            .then((canvas) => {
+                const imgData = canvas.toDataURL('image/png');
+                const pdf = new jsPDF();
+                pdf.addImage(imgData, 'JPEG', 0, 0);
+                // pdf.output('dataurlnewwindow');
+                pdf.save("download.pdf");
+            })
+        ;
+    }
+
+    render() {
+        return (
+            <div>
+              <div className="mb5">
+                <button onClick={this.printDocument}>Print</button>
+              </div>
+              <div id="divToPrint" className="mt4"
+                   style={{
+                       backgroundColor: '#f5f5f5',
+                       width: '210mm',
+                       minHeight: '297mm',
+                       marginLeft: 'auto',
+                       marginRight: 'auto'
+                   }}>
+                <div>Note: Here the dimensions of div are same as A4</div>
+                <div>You Can add any component here</div>
+              </div>
+            </div>);
+    }
+}
+
 
 const StartDate = '2018-07-05';
 const EndDate = '2019-04-26';
@@ -60,21 +100,21 @@ const fces3 = {
 
 /* from semantic-ui-calendar-react */
 const _getCalendarStart = (referenceDate) => {
-  return referenceDate.clone().startOf('month').startOf('week');
+    return referenceDate.clone().startOf('month').startOf('week');
 };
 
 /* from semantic-ui-calendar-react */
 const getArrayOfWeeks = (referenceDate, weeks = 6 ) => {
-  const weeksList = new Array(weeks);
-  let day = _getCalendarStart(referenceDate).clone();
-  for (let i = 0; i < weeksList.length; i++) {
-    weeksList[i] = [];
-    for (let j = 0; j < 7; j++) {
-      weeksList[i][j] = day.clone();
-      day.add(1, 'd');
+    const weeksList = new Array(weeks);
+    let day = _getCalendarStart(referenceDate).clone();
+    for (let i = 0; i < weeksList.length; i++) {
+        weeksList[i] = [];
+        for (let j = 0; j < 7; j++) {
+            weeksList[i][j] = day.clone();
+            day.add(1, 'd');
+        }
     }
-  }
-  return weeksList;
+    return weeksList;
 };
 
 
@@ -134,8 +174,8 @@ class ChooseStartDate extends Component {
                 <DateSelect />
               </Message.Content>
             </Message>
-);
-}
+        );
+    }
 }
 
 class App extends Component {
@@ -150,35 +190,38 @@ class App extends Component {
             for (let day of dr.by('day')) {
                 console.log(day.format('YYYY-MM-DD'));
             }
-        }
 
-        const wy = moment.range(StartDate, EndDate);
-        for (let month of wy.by('month')) {
-            console.log(month.format('MMMM YYYY'));
-            const weeks = getArrayOfWeeks(month);
-            for( const week of weeks ){
-                for( const day of week){
-                    console.log(day.format('MMMM DD, YYYY'));
+            const wy = moment.range(StartDate, EndDate);
+            for (let month of wy.by('month')) {
+                console.log(month.format('MMMM YYYY'));
+                const weeks = getArrayOfWeeks(month);
+                for( const week of weeks ){
+                    for( const day of week){
+                        console.log(day.format('MMMM DD, YYYY'));
+                    }
                 }
             }
         }
 
         return (
-            <Grid>
-              <Grid.Row>
-                <Grid.Column width={13}>
-                  <Header as='h1'>UMMS 3rd Year Calendar Generator</Header>
-                </Grid.Column>
-              </Grid.Row>
+            <React.Fragment>
+              <Export />
+              <Grid>
+                <Grid.Row>
+                  <Grid.Column width={13}>
+                    <Header as='h1'>UMMS 3rd Year Calendar Generator</Header>
+                  </Grid.Column>
+                </Grid.Row>
 
-              <Grid.Row>
-                <Grid.Column width={3}>
-                  <ChooseStartDate />
-                </Grid.Column>
-              </Grid.Row>
-            </Grid>
-);
-}
+                <Grid.Row>
+                  <Grid.Column width={3}>
+                    <ChooseStartDate />
+                  </Grid.Column>
+                </Grid.Row>
+              </Grid>
+            </React.Fragment>
+        );
+    }
 }
 
 export default App;
