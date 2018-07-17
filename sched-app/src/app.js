@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './app.css';
 import { Message, Grid, Header, List } from 'semantic-ui-react';
+import moment from 'moment';
 
 import { DateInput, DatesRangeInput } from 'semantic-ui-calendar-react';
 import '../node_modules/semantic-ui-calendar-react/dist/css/calendar.min.css';
@@ -48,11 +49,31 @@ const fces2 = [
     {"c": ['2018-11-05', '2018-11-09']}
 ];
 
-const fces3 = [
-    {"a": ['2019-02-04', '2019-02-08']},
-    {"b": ['2019-03-11', '2019-03-15']},
-    {"c": ['2019-03-25', '2019-03-29']}
-];
+const fces3 = {
+    "a": ['2019-02-04', '2019-02-08'],
+    "b": ['2019-03-11', '2019-03-15'],
+    "c": ['2019-03-25', '2019-03-29']
+};
+
+/* from semantic-ui-calendar-react */
+const _getCalendarStart = (referenceDate) => {
+  return referenceDate.clone().startOf('month').startOf('week');
+};
+
+/* from semantic-ui-calendar-react */
+const getArrayOfWeeks = (referenceDate, weeks = 6 ) => {
+  const weeksList = new Array(weeks);
+  let day = _getCalendarStart(referenceDate).clone();
+  for (let i = 0; i < weeksList.length; i++) {
+    weeksList[i] = [];
+    for (let j = 0; j < 7; j++) {
+      weeksList[i][j] = day.clone();
+      day.add(1, 'd');
+    }
+  }
+  return weeksList;
+};
+
 
 class DateSelect extends React.Component {
     state = { date: 'July 5, 2018' };
@@ -116,7 +137,11 @@ class StartDate extends Component {
 
 class App extends Component {
     render() {
-	return (
+        const d = moment(fces3["a"][0]);
+        const weeks = getArrayOfWeeks(d);
+        console.log(weeks);
+
+        return (
             <Grid>
               <Grid.Row>
                 <Grid.Column width={13}>
