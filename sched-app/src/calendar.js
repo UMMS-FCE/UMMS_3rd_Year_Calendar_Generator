@@ -2,7 +2,7 @@ import React from 'react'
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import { Message, Grid, Header } from 'semantic-ui-react';
+import { Message, Grid } from 'semantic-ui-react';
 
 import * as Actions from './actions';
 import { getArrayOfWeeks } from './utils';
@@ -11,6 +11,15 @@ import { getArrayOfWeeks } from './utils';
 import Moment from 'moment';
 import { extendMoment } from 'moment-range';
 const moment = extendMoment(Moment);
+
+const colors = {
+    "Clerkship": "#56B4E9",
+    "ISC": "#0072B2",
+    "Vacation": "#009E73",
+    "FCE": "#F0E442",
+    "Careers_in_Medicine": "#CC79A7"
+}
+
 
 class Week extends React.Component {
     render(){
