@@ -2,7 +2,7 @@ import React from 'react'
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import { Message, Grid } from 'semantic-ui-react';
+import { Message } from 'semantic-ui-react';
 
 import NamedDateSelect from './theme_dates_date_select';
 import NamedDateRangeSelect from './theme_dates_date_range_select';

@@ -120,6 +120,14 @@ class MainPage extends React.Component {
                     {themes[2] && <ThemeDates block={"block3"}
                                               theme={themes[2]}/>}
                   </Grid.Column>
+                  <Grid.Column width={3}>
+                    <ThemeDates block={"fces1"}
+                                theme={"Block1 FCE weeks"}/>}
+                    <ThemeDates block={"fces2"}
+                                theme={"Block2 FCE weeks"}/>}
+                    <ThemeDates block={"fces3"}
+                                theme={"Block3 FCE weeks"}/>}
+                  </Grid.Column>
 
                 </Grid.Row>
               </Grid>

@@ -11,20 +11,23 @@ const initial_state = {
     startDate: 'July 5, 2018',
     endDate: 'April 26, 2019',
 
-    fces1: {
-        "a": ['June 4, 2018', 'June 8, 2018'],
-        "b": ['July 9, 2018', 'July 13, 2018'],
-        "c": ['August 16, 2018', 'August 20, 2018']},
+    fces1: [
+        ["a", ['June 4, 2018', 'June 8, 2018']],
+        ["b", ['July 9, 2018', 'July 13, 2018']],
+        ["c", ['August 16, 2018', 'August 20, 2018']]
+    ],
 
-    fces2: {
-        "a": ['September 24, 2018', 'September 28, 2018'],
-        "b": ['October 1, 2018', 'October 5, 2018'],
-        "c": ['November 5, 2018', 'November 9, 2018']},
+    fces2: [
+        ["a", ['September 24, 2018', 'September 28, 2018']],
+        ["b", ['October 1, 2018', 'October 5, 2018']],
+        ["c", ['November 5, 2018', 'November 9, 2018']]
+    ],
 
-    fces3: {
-        "a": ['February 4, 2019', 'February 8, 2019'],
-        "b": ['March 11, 2019', 'March 15, 2019'],
-        "c": ['March 25, 2019', 'March 29, 2019']},
+    fces3:  [
+        ["a", ['February 4, 2019', 'February 8, 2019']],
+        ["b", ['March 11, 2019', 'March 15, 2019']],
+        ["c", ['March 25, 2019', 'March 29, 2019']]
+    ],
 
     block1:[
         [ "A block", ['May 7, 2018', 'June 8, 2018'] ],
