@@ -14,9 +14,29 @@ const moment = extendMoment(Moment);
 
 class Week extends React.Component {
     render(){
+        const {month, weekObj} = this.props;
+
+        let a = [];
+
+        for( const day of weekObj){
+            const inThisMonth = month === day.format('MMMM');
+            const dayNum = day.date();
+            const style = {};
+            if(!inThisMonth){
+                style["color"] = 'grey';
+            }
+
+            a.push(
+                <td key={day.format('MMDD')} >
+                  <span style={style}>
+                    {dayNum}
+                  </span>
+                </td>);
+        }
 
         return (
             <tr>
+              {a}
             </tr>
         );
     }
@@ -30,9 +50,9 @@ class Month extends React.Component {
 
         const weeks = getArrayOfWeeks(monthObj);
 
-        let d = []
+        let a = []
         for( const [idx, weekObj] of weeks.entries() ){
-            d.push(<Week weekObj={weekObj} key={idx} />);
+            a.push(<Week month={month} weekObj={weekObj} key={idx} />);
         }
 
         return (
@@ -41,7 +61,7 @@ class Month extends React.Component {
                 <Message.Header>{month}{" "}{year}</Message.Header>
                 <table>
                   <tbody>
-                    {d}
+                    {a}
                   </tbody>
                 </table>
               </Message.Content>
