@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 
 import { Grid, Header } from 'semantic-ui-react';
 
-import { DateRangeSelect } from './utils';
 import * as Actions from './actions';
 
 class Calendar extends React.Component {

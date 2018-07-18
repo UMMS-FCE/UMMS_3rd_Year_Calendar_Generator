@@ -12,9 +12,6 @@ class NamedDateRangeSelect extends React.Component {
         const title = this.props.date[0];
         const dates = this.props.date[1];
 
-        const d1 = dates[0];
-        const d2 = dates[1];
-
         return (
             <Grid.Row>
               <Grid.Column width={1}>
