@@ -35,7 +35,7 @@ class ChooseEndDate extends React.Component {
             <Message icon>
               <Message.Content>
                 <Message.Header>Pick End Date</Message.Header>
-		Pick first day of rotations (not including transition course)
+		Pick last day of rotations (not including transition course)
                 <EndDateSelect />
               </Message.Content>
             </Message>
