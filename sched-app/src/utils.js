@@ -19,7 +19,7 @@ export class DateSelect extends React.Component {
               placeholder="Date"
               value={this.props.date}
               iconPosition="left"
-              dateFormat="MMMM DD, YYYY"
+              dateFormat="MMMM D, YYYY"
               onChange={(e, {name, value}) => {
                   this.props.onChange(value);
               }} />
@@ -39,7 +39,7 @@ export class DateRangeSelect extends React.Component {
                 placeholder="Date"
                 value={d1}
                 iconPosition="left"
-                dateFormat="MMMM DD, YYYY"
+                dateFormat="MMMM D, YYYY"
                 onChange={(e, {name, value}) => {
                     this.props.onChange([value, d2]);
                 }} />
@@ -49,7 +49,7 @@ export class DateRangeSelect extends React.Component {
                   placeholder="Date"
                   value={d2}
                   iconPosition="left"
-                  dateFormat="MMMM DD, YYYY"
+                  dateFormat="MMMM D, YYYY"
                   onChange={(e, {name, value}) => {
                       this.props.onChange([d1, value]);
                   }} />

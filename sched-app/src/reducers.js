@@ -2,29 +2,29 @@ import * as Actions from './actions';
 
 const initial_state = {
 
-    startDate: 'July 5, 2018',
-    endDate: 'April 26, 2019',
-
     thematic_section_order: '',
     thematic_surgery_order: '',
     thematic_med_order: '',
     thematic_family_order: '',
     themes: ['', '', ''],
 
+    startDate: 'July 5, 2018',
+    endDate: 'April 26, 2019',
+
     fces1: {
-        "a": ['2018-06-04', '2018-06-08'],
-        "b": ['2018-07-09', '2018-07-13'],
-        "c": ['2018-07-16', '2018-07-20']},
+        "a": ['June 4, 2018', 'June 8, 2018'],
+        "b": ['July 9, 2018', 'July 13, 2018'],
+        "c": ['August 16, 2018', 'August 20, 2018']},
 
     fces2: {
-        "a": ['2018-09-24', '2018-09-28'],
-        "b": ['2018-10-01', '2018-10-05'],
-        "c": ['2018-11-05', '2018-11-09']},
+        "a": ['September 24, 2018', 'September 28, 2018'],
+        "b": ['October 1, 2018', 'October 5, 2018'],
+        "c": ['November 5, 2018', 'November 9, 2018']},
 
     fces3: {
-        "a": ['2019-02-04', '2019-02-08'],
-        "b": ['2019-03-11', '2019-03-15'],
-        "c": ['2019-03-25', '2019-03-29']},
+        "a": ['February 4, 2019', 'February 8, 2019'],
+        "b": ['March 11, 2019', 'March 15, 2019'],
+        "c": ['March 25, 2019', 'March 29, 2019']},
 
     block1:[
         [ "A block", ['May 7, 2018', 'June 8, 2018'] ],
