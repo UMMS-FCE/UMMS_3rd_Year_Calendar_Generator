@@ -16,6 +16,7 @@ class NamedDateSelect extends React.Component {
             <Grid.Row>
               <Grid.Column width={12}>
                 {title}
+                <br />
                 <DateSelect date={date}
                             onChange={(d) => {
                                 this.props.actions.setDates(this.props.block,

@@ -104,18 +104,21 @@ class MainPage extends React.Component {
                     <ChooseStartDate />
                     <ChooseThematicSectionOrder />
                     {thematic_section_order &&
-                     <ChooseRotationOrders
-                           themes={themes} />}
+                        <ChooseRotationOrders
+                          themes={themes} />}
                   </Grid.Column>
 
                   <Grid.Column width={3}>
-                    {<ThemeDates block={"block1"}/>}
+                    {themes[0] && <ThemeDates block={"block1"}
+                                              theme={themes[0]}/>}
                   </Grid.Column>
                   <Grid.Column width={3}>
-                    {<ThemeDates block={"block2"}/>}
+                    {themes[1] && <ThemeDates block={"block2"}
+                                              theme={themes[1]}/>}
                   </Grid.Column>
                   <Grid.Column width={3}>
-                    {<ThemeDates block={"block3"}/>}
+                    {themes[2] && <ThemeDates block={"block3"}
+                                              theme={themes[2]}/>}
                   </Grid.Column>
 
                 </Grid.Row>

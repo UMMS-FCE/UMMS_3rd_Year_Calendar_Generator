@@ -2,7 +2,7 @@ import React from 'react'
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import { Grid } from 'semantic-ui-react';
+import { Message, Grid } from 'semantic-ui-react';
 
 import NamedDateSelect from './theme_dates_date_select';
 import NamedDateRangeSelect from './theme_dates_date_range_select';
@@ -32,9 +32,15 @@ class ThemeDates extends React.Component {
         }
 
         return (
-            <Grid container columns={2}>
-              {a}
-            </Grid>);
+            <Message icon>
+              <Message.Content>
+                <Message.Header>{this.props.theme}</Message.Header>
+                <Grid container columns={2}>
+                  {a}
+                </Grid>
+              </Message.Content>
+            </Message>
+        );
     }
 }
 
