@@ -8,7 +8,7 @@ const initial_state = {
     thematic_family_order: '',
     themes: ['', '', ''],
 
-    startDate: 'July 5, 2018',
+    startDate: 'May 7, 2018',
     endDate: 'April 26, 2019',
 
     fces1: [
