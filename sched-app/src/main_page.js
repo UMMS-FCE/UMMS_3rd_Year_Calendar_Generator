@@ -88,6 +88,8 @@ class MainPage extends React.Component {
             // }
         }
 
+        const {thematic_section_order} = this.props;
+
         return (
             <React.Fragment>
               <Grid>
@@ -101,9 +103,9 @@ class MainPage extends React.Component {
                   <Grid.Column width={3}>
                     <ChooseStartDate />
                     <ChooseThematicSectionOrder />
-                    {this.props.thematic_section_order &&
+                    {thematic_section_order &&
                      <ChooseRotationOrders
-                     thematic_section_order={this.props.thematic_section_order} />}
+                     thematic_section_order={thematic_section_order} />}
                   </Grid.Column>
                 </Grid.Row>
               </Grid>
