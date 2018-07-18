@@ -9,6 +9,7 @@ const initial_state = {
     thematic_surgery_order: '',
     thematic_med_order: '',
     thematic_family_order: '',
+    themes: ['', '', ''],
 
     block1: [
         { "a_dates": ['2018-05-07', '2018-06-08'] },
@@ -65,7 +66,9 @@ const reducers = (state = initial_state, action) => {
         return {...state, startDate: action.startDate };
     case Actions.SET_THEMATIC_SECTION_ORDER:
         return {...state,
-            thematic_section_order: action.thematic_section_order.value };
+                thematic_section_order: action.thematic_section_order.value,
+                themes: action.thematic_section_order.value.split('-')
+               };
     case Actions.SET_THEMATIC_MED_ORDER:
         return {...state,
                 thematic_med_order: action.order.value };

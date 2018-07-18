@@ -48,7 +48,7 @@ class ChooseRotationOrders extends React.Component {
             Medicine: <ThematicMedOrderDropdown key='med' />};
 
         let a = []
-        for( const r of this.props.thematic_section_order.split('-')){
+        for( const r of this.props.themes ){
             a.push(rotations[r]);
         }
 
@@ -88,7 +88,7 @@ class MainPage extends React.Component {
             // }
         }
 
-        const {thematic_section_order} = this.props;
+        const {thematic_section_order, themes} = this.props;
 
         return (
             <React.Fragment>
@@ -105,8 +105,19 @@ class MainPage extends React.Component {
                     <ChooseThematicSectionOrder />
                     {thematic_section_order &&
                      <ChooseRotationOrders
-                     thematic_section_order={thematic_section_order} />}
+                           themes={themes} />}
                   </Grid.Column>
+
+                  <Grid.Column width={3}>
+
+                  </Grid.Column>
+                  <Grid.Column width={3}>
+
+                  </Grid.Column>
+                  <Grid.Column width={3}>
+
+                  </Grid.Column>
+
                 </Grid.Row>
               </Grid>
             </React.Fragment>
@@ -116,6 +127,7 @@ class MainPage extends React.Component {
 
 const mapStateToProps = (state) => ({
     thematic_section_order: state.thematic_section_order,
+    themes: state.themes,
 });
 const mapDispatchToProps = (dispatch) => ({
     actions: bindActionCreators(Actions, dispatch),
