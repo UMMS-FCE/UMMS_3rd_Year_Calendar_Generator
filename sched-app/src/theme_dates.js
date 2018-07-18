@@ -39,7 +39,7 @@ class ThemeDates extends React.Component {
 }
 
 const mapStateToProps = (state, props) => ({
-    dates: state[props.block].dates,
+    dates: state.main[props.block],
 });
 const mapDispatchToProps = (dispatch) => ({
     actions: bindActionCreators(Actions, dispatch),

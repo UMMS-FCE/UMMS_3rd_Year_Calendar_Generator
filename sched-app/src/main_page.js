@@ -112,10 +112,10 @@ class MainPage extends React.Component {
                     {<ThemeDates block={"block1"}/>}
                   </Grid.Column>
                   <Grid.Column width={3}>
-                    {0 && <ThemeDates block={"block2"}/>}
+                    {<ThemeDates block={"block2"}/>}
                   </Grid.Column>
                   <Grid.Column width={3}>
-                    {0 && <ThemeDates block={"block3"}/>}
+                    {<ThemeDates block={"block3"}/>}
                   </Grid.Column>
 
                 </Grid.Row>

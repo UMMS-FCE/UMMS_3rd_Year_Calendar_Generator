@@ -11,7 +11,6 @@ class NamedDateRangeSelect extends React.Component {
     render(){
         const title = this.props.date[0];
         const dates = this.props.date[1];
-        console.log(this.props);
 
         return (
             <Grid.Row>
@@ -30,7 +29,7 @@ class NamedDateRangeSelect extends React.Component {
 }
 
 const mapStateToProps = (state, props) => ({
-    date: state[props.block].dates[props.idx],
+    date: state.main[props.block][props.idx],
 });
 const mapDispatchToProps = (dispatch) => ({
     actions: bindActionCreators(Actions, dispatch),

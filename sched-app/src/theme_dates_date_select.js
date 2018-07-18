@@ -29,7 +29,7 @@ class NamedDateSelect extends React.Component {
 }
 
 const mapStateToProps = (state, props) => ({
-    date: state[props.block].dates[props.idx],
+    date: state.main[props.block][props.idx],
 });
 const mapDispatchToProps = (dispatch) => ({
     actions: bindActionCreators(Actions, dispatch),
