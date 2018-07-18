@@ -23,9 +23,13 @@ const thematic_med_order_options = [
 
 class ThematicMedOrderDropdown extends React.Component {
     render(){
+        const {thematic_med_order} = this.props;
+        const d = thematic_med_order ? thematic_med_order
+              : 'select medicine order';
+
         return (
             <Dropdown
-              placeholder='select medicine order'
+            placeholder={d}
               fluid
               selection
               options={thematic_med_order_options}

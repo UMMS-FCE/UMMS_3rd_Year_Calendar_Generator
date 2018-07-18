@@ -2,7 +2,7 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import { Message, Grid, Header } from 'semantic-ui-react';
+import { Message, Grid, Header, Tab } from 'semantic-ui-react';
 
 import StartDateSelect from './startDateSelect';
 import ThematicSectionOrderDropdown from './theme_order';
@@ -63,7 +63,13 @@ class ChooseRotationOrders extends React.Component {
     }
 }
 
-class MainPage extends React.Component {
+const panes = [
+    { menuItem: 'Tab 1', render: () => <Tab.Pane>Tab 1 Content</Tab.Pane> },
+    { menuItem: 'Tab 2', render: () => <Tab.Pane>Tab 2 Content</Tab.Pane> },
+    { menuItem: 'Tab 3', render: () => <Tab.Pane>Tab 3 Content</Tab.Pane> },
+]
+
+class TabTest extends React.Component {
     render() {
         if(0){
             // const d = moment(fces3["a"][0]);
@@ -88,26 +94,48 @@ class MainPage extends React.Component {
             // }
         }
 
-        const {thematic_section_order, themes} = this.props;
-
         return (
-            <React.Fragment>
+            <Tab.Pane>
+              Test
+            </Tab.Pane>
+        );
+    }
+}
+
+class TabFceDates extends React.Component {
+    render() {
+        const {thematic_section_order, themes} = this.props;
+        return (
+            <Tab.Pane>
               <Grid>
                 <Grid.Row>
-                  <Grid.Column width={13}>
-                    <Header as='h1'>UMMS 3rd Year Calendar Generator</Header>
-                  </Grid.Column>
-                </Grid.Row>
-
-                <Grid.Row>
                   <Grid.Column width={3}>
-                    <ChooseStartDate />
-                    <ChooseThematicSectionOrder />
-                    {thematic_section_order &&
-                        <ChooseRotationOrders
-                          themes={themes} />}
+                    <ThemeDates block={"fces1"}
+                                theme={"Block1 FCE weeks"}/>
+                  </Grid.Column>
+                  <Grid.Column width={3}>
+                    <ThemeDates block={"fces2"}
+                                theme={"Block2 FCE weeks"}/>
+                  </Grid.Column>
+                  <Grid.Column width={3}>
+                    <ThemeDates block={"fces3"}
+                                theme={"Block3 FCE weeks"}/>
                   </Grid.Column>
 
+                </Grid.Row>
+              </Grid>
+            </Tab.Pane>
+        );
+    }
+}
+
+class TabBlockDates extends React.Component {
+    render() {
+        const {themes} = this.props;
+        return (
+            <Tab.Pane>
+              <Grid>
+                <Grid.Row>
                   <Grid.Column width={3}>
                     {themes[0] && <ThemeDates block={"block1"}
                                               theme={themes[0]}/>}
@@ -120,19 +148,55 @@ class MainPage extends React.Component {
                     {themes[2] && <ThemeDates block={"block3"}
                                               theme={themes[2]}/>}
                   </Grid.Column>
-                  <Grid.Column width={3}>
-                    <ThemeDates block={"fces1"}
-                                theme={"Block1 FCE weeks"}/>
-                    <ThemeDates block={"fces2"}
-                                theme={"Block2 FCE weeks"}/>
-                    <ThemeDates block={"fces3"}
-                                theme={"Block3 FCE weeks"}/>
-                  </Grid.Column>
-
                 </Grid.Row>
               </Grid>
-            </React.Fragment>
+            </Tab.Pane>
         );
+    }
+}
+
+class TabMain extends React.Component {
+    render() {
+        const {thematic_section_order, themes} = this.props;
+        return (
+            <Tab.Pane>
+              <Grid>
+                <Grid.Row>
+                  <Grid.Column width={3}>
+                    <ChooseStartDate />
+                    <ChooseThematicSectionOrder />
+                    {thematic_section_order &&
+                        <ChooseRotationOrders themes={themes} />}
+                  </Grid.Column>
+                </Grid.Row>
+              </Grid>
+            </Tab.Pane>
+        );
+    }
+}
+
+class MainPage extends React.Component {
+    render() {
+        const {thematic_section_order, themes} = this.props;
+
+        const panes = [];
+        panes.push({ menuItem: 'Main', render: () => (
+            <TabMain {...{thematic_section_order, themes}} />) });
+
+        if(thematic_section_order){
+            panes.push({ menuItem: 'Block Dates', render: () => (
+                <TabBlockDates {...{themes}} /> )});
+        }
+
+        panes.push({ menuItem: 'FCE Dates', render: () => <TabFceDates /> });
+
+        return (
+            <div>
+              <Header as='h1'>
+                UMMS 3rd Year Calendar Generator
+              </Header>
+              <Tab panes={panes} />
+            </div>);
     }
 }
 

@@ -23,9 +23,14 @@ const thematic_family_order_options = [
 
 class ThematicFamilyOrderDropdown extends React.Component {
     render(){
+        const {thematic_family_order} = this.props;
+
+        const d = thematic_family_order ? thematic_family_order
+              : 'select family order';
+
         return (
             <Dropdown
-              placeholder='select family order'
+            placeholder={d}
               fluid
               selection
               options={thematic_family_order_options}
