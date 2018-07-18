@@ -79,26 +79,12 @@ class ChooseRotationOrders extends React.Component {
     }
 }
 
-// const d = moment(fces3["a"][0]);
-// const weeks = getArrayOfWeeks(d);
-// console.log(weeks);
-
 // const dr = moment.range(fces3["a"]);
 // console.log(fces3["a"]);
 // for (let day of dr.by('day')) {
 //     console.log(day.format('YYYY-MM-DD'));
 // }
 
-// const wy = moment.range(StartDate, EndDate);
-// for (let month of wy.by('month')) {
-//     console.log(month.format('MMMM YYYY'));
-//     const weeks = getArrayOfWeeks(month);
-//     for( const week of weeks ){
-//         for( const day of week){
-//             console.log(day.format('MMMM DD, YYYY'));
-//         }
-//     }
-// }
 
 class TabFceDates extends React.Component {
     render() {
@@ -166,9 +152,7 @@ class TabMain extends React.Component {
                     {thematic_section_order &&
                     <ChooseRotationOrders themes={themes} />}
                   </Grid.Column>
-                  <Grid.Column width={9}>
-                    <Calendar />
-                  </Grid.Column>
+                  <Calendar />
                 </Grid.Row>
               </Grid>
             </Tab.Pane>

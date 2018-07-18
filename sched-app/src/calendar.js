@@ -56,16 +56,18 @@ class Month extends React.Component {
         }
 
         return (
-            <Message icon>
-              <Message.Content>
-                <Message.Header>{month}{" "}{year}</Message.Header>
-                <table>
-                  <tbody>
-                    {a}
-                  </tbody>
-                </table>
-              </Message.Content>
-            </Message>
+            <Grid.Column>
+              <Message icon>
+                <Message.Content>
+                  <Message.Header>{month}{" "}{year}</Message.Header>
+                  <table>
+                    <tbody>
+                      {a}
+                    </tbody>
+                  </table>
+                </Message.Content>
+              </Message>
+            </Grid.Column>
         );
     }
 }
@@ -84,10 +86,9 @@ class Calendar extends React.Component {
         }
 
         return (
-            <React.Fragment>
-              <Header as="h3">Calendar</Header>
+            <Grid container columns={4}>
               {months}
-            </React.Fragment>
+            </Grid>
         );
     }
 }
