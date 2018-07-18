@@ -4,6 +4,7 @@ const initial_state = {
 
     startDate: '2018-07-05',
     endDate: '2019-04-26',
+    thematic_section_order: '',
 
     block1: [
         { "a_dates": ['2018-05-07', '2018-06-08'] },
@@ -53,11 +54,18 @@ const initial_state = {
 };
 
 const reducers = (state = initial_state, action) => {
+    console.log(action);
+
     switch (action.type){
     case Actions.SET_START_DATE:
         return {
             ...state,
             startDate: action.startDate
+        };
+    case Actions.SET_THEMATIC_SECTION_ORDER:
+        return {
+            ...state,
+            thematic_section_order: action.thematic_section_order.value
         };
     default:
         return state;

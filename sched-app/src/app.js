@@ -9,6 +9,8 @@ import './app.css';
 import { Message, Grid, Header, List } from 'semantic-ui-react';
 
 import StartDateSelect from './startDateSelect';
+import ThematicSectionOrderDropdown from './thematic_order';
+
 
 class ChooseStartDate extends Component {
     render() {
@@ -26,6 +28,19 @@ class ChooseStartDate extends Component {
                 </List>
 		<label>Start Date (default is 2018-2019 start date):</label>
                 <StartDateSelect />
+              </Message.Content>
+            </Message>
+        );
+    }
+}
+
+class ChooseThematicSectionOrder extends Component {
+    render() {
+	return (
+            <Message icon>
+              <Message.Content>
+                <Message.Header>Thematic Section Order</Message.Header>
+                <ThematicSectionOrderDropdown />
               </Message.Content>
             </Message>
         );
@@ -69,6 +84,7 @@ class AppInner extends Component {
                 <Grid.Row>
                   <Grid.Column width={3}>
                     <ChooseStartDate />
+                    <ChooseThematicSectionOrder />
                   </Grid.Column>
                 </Grid.Row>
               </Grid>

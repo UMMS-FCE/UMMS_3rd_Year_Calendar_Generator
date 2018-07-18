@@ -7,7 +7,6 @@ import * as Actions from './actions';
 
 class StartDateSelect extends React.Component {
     render(){
-        console.log(this.props);
         return (
             <DateSelect value={this.props.startDate}
                         onChange={(d) => this.props.actions.setStartDate(d)} />
