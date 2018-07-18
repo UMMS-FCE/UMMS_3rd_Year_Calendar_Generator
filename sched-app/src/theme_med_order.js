@@ -7,25 +7,25 @@ import { Dropdown } from 'semantic-ui-react'
 import * as Actions from './actions';
 
 const thematic_med_order_options = [
-    {text: "Family-Surgery-Medicine",
-     value: "Family-Surgery-Medicine"},
-    {text: "Family-Medicine-Surgery",
-     value: "Family-Medicine-Surgery"},
-    {text: "Medicine-Family-Surgery",
-     value: "Medicine-Family-Surgery"},
-    {text: "Medicine-Surgery-Family",
-     value: "Medicine-Surgery-Family"},
-    {text: "Surgery-Medicine-Family",
-     value: "Surgery-Medicine-Family"},
-    {text: "Surgery-Family-Medicine",
-     value: "Surgery-Family-Medicine"}
+    {text: "UWards-Community-Neuro/Amp",
+     value: "UWards-Community-Neuro/Amp"},
+    {text: "UWards-Neuro/Amp-Community",
+     value: "UWards-Neuro/Amp-Community"},
+    {text: "Neuro/Amp-UWards-Community",
+     value: "Neuro/Amp-UWards-Community"},
+    {text: "Neuro/Amp-Community-UWards",
+     value: "Neuro/Amp-Community-UWards"},
+    {text: "Community-Neuro/Amp-UWards",
+     value: "Community-Neuro/Amp-UWards"},
+    {text: "Community-UWards-Neuro/Amp",
+     value: "Community-UWards-Neuro/Amp"}
 ];
 
 class ThematicMedOrderDropdown extends React.Component {
     render(){
         return (
             <Dropdown
-              placeholder='select order'
+              placeholder='select medicine order'
               fluid
               selection
               options={thematic_med_order_options}

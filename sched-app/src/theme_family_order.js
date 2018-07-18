@@ -7,25 +7,25 @@ import { Dropdown } from 'semantic-ui-react'
 import * as Actions from './actions';
 
 const thematic_family_order_options = [
-    {text: "Family-Surgery-Medicine",
-     value: "Family-Surgery-Medicine"},
-    {text: "Family-Medicine-Surgery",
-     value: "Family-Medicine-Surgery"},
-    {text: "Medicine-Family-Surgery",
-     value: "Medicine-Family-Surgery"},
-    {text: "Medicine-Surgery-Family",
-     value: "Medicine-Surgery-Family"},
-    {text: "Surgery-Medicine-Family",
-     value: "Surgery-Medicine-Family"},
-    {text: "Surgery-Family-Medicine",
-     value: "Surgery-Family-Medicine"}
+    {text: "Peds-Family-Psych",
+     value: "Peds-Family-Psych"},
+    {text: "Peds-Psych-Family",
+     value: "Peds-Psych-Family"},
+    {text: "Psych-Peds-Family",
+     value: "Psych-Peds-Family"},
+    {text: "Psych-Family-Peds",
+     value: "Psych-Family-Peds"},
+    {text: "Family-Psych-Peds",
+     value: "Family-Psych-Peds"},
+    {text: "Family-Peds-Psych",
+     value: "Family-Peds-Psych"}
 ];
 
 class ThematicFamilyOrderDropdown extends React.Component {
     render(){
         return (
             <Dropdown
-              placeholder='select order'
+              placeholder='select family order'
               fluid
               selection
               options={thematic_family_order_options}
