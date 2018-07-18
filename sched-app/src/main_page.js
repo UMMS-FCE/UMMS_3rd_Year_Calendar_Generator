@@ -19,7 +19,7 @@ class ChooseStartDate extends React.Component {
             <Message icon>
               <Message.Content>
                 <Message.Header>Pick Start Date</Message.Header>
-		Pick first day of rotations (not including transition course); the rest of the dates will be automatically generated
+		Pick first day of rotations (not including transition course)
                 <StartDateSelect />
               </Message.Content>
             </Message>
@@ -122,11 +122,11 @@ class MainPage extends React.Component {
                   </Grid.Column>
                   <Grid.Column width={3}>
                     <ThemeDates block={"fces1"}
-                                theme={"Block1 FCE weeks"}/>}
+                                theme={"Block1 FCE weeks"}/>
                     <ThemeDates block={"fces2"}
-                                theme={"Block2 FCE weeks"}/>}
+                                theme={"Block2 FCE weeks"}/>
                     <ThemeDates block={"fces3"}
-                                theme={"Block3 FCE weeks"}/>}
+                                theme={"Block3 FCE weeks"}/>
                   </Grid.Column>
 
                 </Grid.Row>
