@@ -4,23 +4,24 @@ import { connect } from 'react-redux';
 
 import { Grid } from 'semantic-ui-react';
 
-import { DateSelect } from './utils';
+import { DateRangeSelect } from './utils';
 import * as Actions from './actions';
 
-class NamedDateSelect extends React.Component {
+class NamedDateRangeSelect extends React.Component {
     render(){
         const title = this.props.date[0];
-        const date = this.props.date[1][0];
+        const dates = this.props.date[1];
+        console.log(this.props);
 
         return (
             <Grid.Row>
               <Grid.Column width={12}>
                 {title}
-                <DateSelect date={date}
-                            onChange={(d) => {
-                                this.props.actions.setDates(this.props.block,
-                                                            this.props.idx,
-                                                            title, [d])
+                <DateRangeSelect dates={dates}
+                                 onChange={(d) => {
+                                     this.props.actions.setDates(this.props.block,
+                                                                 this.props.idx,
+                                                                 title, d)
                   }} />
               </Grid.Column>
             </Grid.Row>
@@ -34,4 +35,4 @@ const mapStateToProps = (state, props) => ({
 const mapDispatchToProps = (dispatch) => ({
     actions: bindActionCreators(Actions, dispatch),
 });
-export default connect(mapStateToProps, mapDispatchToProps)(NamedDateSelect);
+export default connect(mapStateToProps, mapDispatchToProps)(NamedDateRangeSelect);

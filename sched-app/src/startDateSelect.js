@@ -8,14 +8,14 @@ import * as Actions from './actions';
 class StartDateSelect extends React.Component {
     render(){
         return (
-            <DateSelect value={this.props.startDate}
+            <DateSelect date={this.props.startDate}
                         onChange={(d) => this.props.actions.setStartDate(d)} />
         );
     }
 }
 
 const mapStateToProps = (state) => ({
-    startDate: state.startDate,
+    startDate: state.main.startDate,
 });
 const mapDispatchToProps = (dispatch) => ({
     actions: bindActionCreators(Actions, dispatch),

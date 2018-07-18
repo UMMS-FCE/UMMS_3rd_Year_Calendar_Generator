@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { DateInput, DatesRangeInput } from 'semantic-ui-calendar-react';
+import { DateInput } from 'semantic-ui-calendar-react';
 import '../node_modules/semantic-ui-calendar-react/dist/css/calendar.min.css';
 
 import jsPDF from 'jspdf';
@@ -29,17 +29,31 @@ export class DateSelect extends React.Component {
 
 export class DateRangeSelect extends React.Component {
     render() {
+        const d1 = this.props.dates[0];
+        const d2 = this.props.dates[1];
+
         return (
-            <DatesRangeInput
-              name="datesRange"
-              placeholder="From - To"
-              value={this.props.dates}
-              iconPosition="left"
-              dateFormat="MMMM DD, YYYY"
-              onChange={(e, {name, value}) => {
-                  console.log(value);
-                  this.props.onChange(value);
-              }} />
+            <div>
+              <DateInput
+                name="date"
+                placeholder="Date"
+                value={d1}
+                iconPosition="left"
+                dateFormat="MMMM DD, YYYY"
+                onChange={(e, {name, value}) => {
+                    this.props.onChange([value, d2]);
+                }} />
+                {"to"}
+                <DateInput
+                  name="date"
+                  placeholder="Date"
+                  value={d2}
+                  iconPosition="left"
+                  dateFormat="MMMM DD, YYYY"
+                  onChange={(e, {name, value}) => {
+                      this.props.onChange([d1, value]);
+                  }} />
+            </div>
         );
     }
 }

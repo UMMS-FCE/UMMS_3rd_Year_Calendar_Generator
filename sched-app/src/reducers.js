@@ -1,10 +1,9 @@
 import * as Actions from './actions';
-import {assert} from './utils';
 
 const initial_state = {
 
-    startDate: '2018-07-05',
-    endDate: '2019-04-26',
+    startDate: 'July 5, 2018',
+    endDate: 'April 26, 2019',
 
     thematic_section_order: '',
     thematic_surgery_order: '',
@@ -12,25 +11,16 @@ const initial_state = {
     thematic_family_order: '',
     themes: ['', '', ''],
 
-    block1: [
-        [ "A block", ['2018-05-07', '2018-06-08'] ],
-        [ "Interstitial Day", ['2018-06-11'] ],
-        [ "B block", ['2018-06-12', '2018-07-13']],
-        [ "C block", ['2018-07-16', '2018-08-16']],
-        [ "Interstitial Day", ['2018-08-17'] ],
-        [ "Summer vacation" , ['2018-08-18', '2018-08-26']]
-    ],
-
     block2: [
-        [ "A block", ['2018-08-27', '2018-09-28'] ],
-        [ "B block", ['2018-10-01', '2018-10-31'] ],
-        [ "Interstitial Day", ['2018-11-01'] ],
-        [ "Careers in medicine", ['2018-11-02'] ],
-        [ "C Block", ['2018-11-05', '2018-12-13']],
-        [ "Interstitial Day", ['2018-12-14'] ],
-        [ "Interstitial Day", ['2018-12-17'] ],
-        [ "Careers in Medicine", ['2018-12-18'] ],
-        [ "Winter vacation", ['2018-12-19', '2019-01-01'] ]
+        [ "A block", ['August 27, 2018', 'September 28, 2018'] ],
+        [ "B block", ['October 1, 2018', 'October 31, 2018'] ],
+        [ "Interstitial Day", ['November 1, 2018'] ],
+        [ "Careers in medicine", ['November 2, 2018'] ],
+        [ "C Block", ['2018-11-05', 'December 13, 2018']],
+        [ "Interstitial Day", ['December 14, 2018'] ],
+        [ "Interstitial Day", ['December 17, 2018'] ],
+        [ "Careers in Medicine", ['December 18, 2018'] ],
+        [ "Winter vacation", ['December 19, 2018', 'January 1, 2019'] ]
     ],
 
     block3: [
@@ -59,9 +49,18 @@ const initial_state = {
         "c": ['2019-03-25', '2019-03-29']}
 };
 
-const reducers = (state = initial_state, action) => {
-    console.log(action);
+const initial_state_block1 = {
+    dates: [
+        [ "A block", ['May 7, 2018', 'June 8, 2018'] ],
+        [ "Interstitial Day", ['June 11, 2018'] ],
+        [ "B block", ['June 12, 2018', 'July 13, 2018']],
+        [ "C block", ['July 16, 2018', 'August 16, 2018']],
+        [ "Interstitial Day", ['August 17, 2018'] ],
+        [ "Summer vacation" , ['August 17, 2018', 'August 26, 2018']]
+    ],
+}
 
+export const reducers = (state = initial_state, action) => {
     switch (action.type){
     case Actions.SET_START_DATE:
         return {...state, startDate: action.startDate };
@@ -79,15 +78,22 @@ const reducers = (state = initial_state, action) => {
     case Actions.SET_THEMATIC_FAMILY_ORDER:
         return {...state,
                 thematic_family_order: action.order.value };
-    case Actions.SET_DATES:
-        let b = state[action.block];
-        assert(action.key === b[action.idx][0]);
-        b[action.idx][1] = action.dates;
-        return {...state,
-                [action.block]: b};
     default:
         return state;
     }
 };
 
-export default reducers;
+export const block1_reducers = (state = initial_state_block1, action) => {
+    switch (action.type){
+    case Actions.SET_DATES:
+        let dates = [
+            ...state.dates.slice(0, action.idx),
+            [action.key, action.dates],
+            ...state.dates.slice(action.idx+1)
+        ];
+        return {...state,
+                dates};
+    default:
+        return state;
+    }
+};

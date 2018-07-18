@@ -36,7 +36,7 @@ class ThematicSectionOrderDropdown extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-    thematic_section_order: state.thematic_section_order,
+    thematic_section_order: state.main.thematic_section_order,
 });
 const mapDispatchToProps = (dispatch) => ({
     actions: bindActionCreators(Actions, dispatch),

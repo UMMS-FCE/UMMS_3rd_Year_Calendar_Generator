@@ -36,7 +36,7 @@ class ThematicSurgeryOrderDropdown extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-    thematic_surgery_order: state.thematic_surgery_order,
+    thematic_surgery_order: state.main.thematic_surgery_order,
 });
 const mapDispatchToProps = (dispatch) => ({
     actions: bindActionCreators(Actions, dispatch),

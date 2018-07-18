@@ -5,8 +5,7 @@ import { connect } from 'react-redux';
 import { Message, Grid, Header } from 'semantic-ui-react';
 
 import StartDateSelect from './startDateSelect';
-import ThematicSectionOrderDropdown from './thematic_order';
-
+import ThematicSectionOrderDropdown from './theme_order';
 import ThematicFamilyOrderDropdown from './theme_family_order';
 import ThematicSurgeryOrderDropdown from './theme_surg_order';
 import ThematicMedOrderDropdown from './theme_med_order';
@@ -110,13 +109,13 @@ class MainPage extends React.Component {
                   </Grid.Column>
 
                   <Grid.Column width={3}>
-                    <ThemeDates block={"block1"}/>
+                    {<ThemeDates block={"block1"}/>}
                   </Grid.Column>
                   <Grid.Column width={3}>
-                    <ThemeDates block={"block2"}/>
+                    {0 && <ThemeDates block={"block2"}/>}
                   </Grid.Column>
                   <Grid.Column width={3}>
-                    <ThemeDates block={"block3"}/>
+                    {0 && <ThemeDates block={"block3"}/>}
                   </Grid.Column>
 
                 </Grid.Row>
@@ -127,8 +126,8 @@ class MainPage extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-    thematic_section_order: state.thematic_section_order,
-    themes: state.themes,
+    thematic_section_order: state.main.thematic_section_order,
+    themes: state.main.themes,
 });
 const mapDispatchToProps = (dispatch) => ({
     actions: bindActionCreators(Actions, dispatch),

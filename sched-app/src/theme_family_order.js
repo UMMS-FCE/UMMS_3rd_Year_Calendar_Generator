@@ -36,7 +36,7 @@ class ThematicFamilyOrderDropdown extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-    thematic_family_order: state.thematic_family_order,
+    thematic_family_order: state.main.thematic_family_order,
 });
 const mapDispatchToProps = (dispatch) => ({
     actions: bindActionCreators(Actions, dispatch),
