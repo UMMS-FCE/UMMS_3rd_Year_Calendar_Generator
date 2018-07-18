@@ -118,16 +118,16 @@ class TabBlockDates extends React.Component {
               <Grid>
                 <Grid.Row>
                   <Grid.Column width={3}>
-                    {themes[0] && <ThemeDates block={"block1"}
-                                              theme={themes[0]}/>}
+                    <ThemeDates block={"block1"}
+                                theme={themes[0]}/>
                   </Grid.Column>
                   <Grid.Column width={3}>
-                    {themes[1] && <ThemeDates block={"block2"}
-                                              theme={themes[1]}/>}
+                    <ThemeDates block={"block2"}
+                                theme={themes[1]}/>
                   </Grid.Column>
                   <Grid.Column width={3}>
-                    {themes[2] && <ThemeDates block={"block3"}
-                                              theme={themes[2]}/>}
+                    <ThemeDates block={"block3"}
+                                theme={themes[2]}/>
                   </Grid.Column>
                 </Grid.Row>
               </Grid>
@@ -160,16 +160,13 @@ class MainPage extends React.Component {
     render() {
         const {thematic_section_order, themes} = this.props;
 
-        const panes = [];
-        panes.push({ menuItem: 'Main', render: () => (
-            <TabMain {...{thematic_section_order, themes}} />) });
-
-        if(thematic_section_order){
-            panes.push({ menuItem: 'Block Dates', render: () => (
-                <TabBlockDates {...{themes}} /> )});
-        }
-
-        panes.push({ menuItem: 'FCE Dates', render: () => <TabFceDates /> });
+        const panes = [
+            { menuItem: 'Main', render: () => (
+                <TabMain {...{thematic_section_order, themes}} />) },
+                { menuItem: 'Block Dates', render: () => (
+                    <TabBlockDates {...{themes}} /> )},
+            { menuItem: 'FCE Dates', render: () => <TabFceDates /> }
+        ];
 
         return (
             <div>
