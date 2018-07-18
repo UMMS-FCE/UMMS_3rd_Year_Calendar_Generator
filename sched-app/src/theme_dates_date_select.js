@@ -2,7 +2,7 @@ import React from 'react'
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import { Grid } from 'semantic-ui-react';
+import { Grid, Header } from 'semantic-ui-react';
 
 import { DateSelect } from './utils';
 import * as Actions from './actions';
@@ -15,8 +15,7 @@ class NamedDateSelect extends React.Component {
         return (
             <Grid.Row>
               <Grid.Column width={12}>
-                {title}
-                <br />
+                <Header as="h4" color="red">{title}</Header>
                 <DateSelect date={date}
                             onChange={(d) => {
                                 this.props.actions.setDates(this.props.block,

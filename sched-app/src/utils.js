@@ -3,6 +3,8 @@ import React, { Component } from 'react';
 import { DateInput } from 'semantic-ui-calendar-react';
 import '../node_modules/semantic-ui-calendar-react/dist/css/calendar.min.css';
 
+import { Grid } from 'semantic-ui-react';
+
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 
@@ -34,7 +36,8 @@ export class DateRangeSelect extends React.Component {
 
         return (
             <React.Fragment>
-              <DateInput
+              <Grid.Column width={3}>
+                <DateInput
                 name="date"
                 placeholder="Date"
                 value={d1}
@@ -42,8 +45,14 @@ export class DateRangeSelect extends React.Component {
                 dateFormat="MMMM D, YYYY"
                 onChange={(e, {name, value}) => {
                     this.props.onChange([value, d2]);
-                }} />
+                  }} />
+              </Grid.Column>
+
+              <Grid.Column width={1}>
                 {"to"}
+              </Grid.Column>
+
+              <Grid.Column width={3}>
                 <DateInput
                   name="date"
                   placeholder="Date"
@@ -53,6 +62,7 @@ export class DateRangeSelect extends React.Component {
                   onChange={(e, {name, value}) => {
                       this.props.onChange([d1, value]);
                   }} />
+              </Grid.Column>
             </React.Fragment>
         );
     }
