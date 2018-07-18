@@ -43,7 +43,7 @@ const initial_state = {
         [ "B block", ['October 1, 2018', 'October 31, 2018'] ],
         [ "Interstitial Day", ['November 1, 2018'] ],
         [ "Careers in medicine", ['November 2, 2018'] ],
-        [ "C Block", ['November 5, 2018', 'December 13, 2018']],
+        [ "C block", ['November 5, 2018', 'December 13, 2018']],
         [ "Interstitial Day", ['December 14, 2018'] ],
         [ "Interstitial Day", ['December 17, 2018'] ],
         [ "Careers in Medicine", ['December 18, 2018'] ],
