@@ -4,7 +4,11 @@ const initial_state = {
 
     startDate: '2018-07-05',
     endDate: '2019-04-26',
+
     thematic_section_order: '',
+    thematic_surgery_order: '',
+    thematic_med_order: '',
+    thematic_family_order: '',
 
     block1: [
         { "a_dates": ['2018-05-07', '2018-06-08'] },
@@ -58,15 +62,19 @@ const reducers = (state = initial_state, action) => {
 
     switch (action.type){
     case Actions.SET_START_DATE:
-        return {
-            ...state,
-            startDate: action.startDate
-        };
+        return {...state, startDate: action.startDate };
     case Actions.SET_THEMATIC_SECTION_ORDER:
-        return {
-            ...state,
-            thematic_section_order: action.thematic_section_order.value
-        };
+        return {...state,
+            thematic_section_order: action.thematic_section_order.value };
+    case Actions.SET_THEMATIC_MED_ORDER:
+        return {...state,
+                thematic_med_order: action.order.value };
+    case Actions.SET_THEMATIC_SURGERY_ORDER:
+        return {...state,
+            thematic_surgery_order: action.order.value };
+    case Actions.SET_THEMATIC_FAMILY_ORDER:
+        return {...state,
+            thematic_family_order: action.order.value };
     default:
         return state;
     }
