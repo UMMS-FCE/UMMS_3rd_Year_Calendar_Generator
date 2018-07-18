@@ -8,11 +8,6 @@ import { Grid } from 'semantic-ui-react';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 
-// for date manipulation
-// import Moment from 'moment';
-// import { extendMoment } from 'moment-range';
-// const moment = extendMoment(Moment);
-
 export class DateSelect extends React.Component {
     render() {
         return (
