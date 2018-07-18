@@ -63,15 +63,6 @@ class ChooseRotationOrders extends React.Component {
     }
 }
 
-const panes = [
-    { menuItem: 'Tab 1', render: () => <Tab.Pane>Tab 1 Content</Tab.Pane> },
-    { menuItem: 'Tab 2', render: () => <Tab.Pane>Tab 2 Content</Tab.Pane> },
-    { menuItem: 'Tab 3', render: () => <Tab.Pane>Tab 3 Content</Tab.Pane> },
-]
-
-class TabTest extends React.Component {
-    render() {
-        if(0){
             // const d = moment(fces3["a"][0]);
             // const weeks = getArrayOfWeeks(d);
             // console.log(weeks);
@@ -92,19 +83,9 @@ class TabTest extends React.Component {
             //         }
             //     }
             // }
-        }
-
-        return (
-            <Tab.Pane>
-              Test
-            </Tab.Pane>
-        );
-    }
-}
 
 class TabFceDates extends React.Component {
     render() {
-        const {thematic_section_order, themes} = this.props;
         return (
             <Tab.Pane>
               <Grid>
