@@ -6,7 +6,7 @@ import { Provider } from 'react-redux';
 import reducers from './reducers';
 
 import './app.css';
-import { Message, Grid, Header, List } from 'semantic-ui-react';
+import { Message, Grid, Header } from 'semantic-ui-react';
 
 import StartDateSelect from './startDateSelect';
 import ThematicSectionOrderDropdown from './thematic_order';
@@ -18,15 +18,7 @@ class ChooseStartDate extends Component {
             <Message icon>
               <Message.Content>
                 <Message.Header>Pick Start Date</Message.Header>
-		<List ordered>
-                  <List.Item>
-		    First pick first day of rotations not including transition course, the rest of the dates will be automatically generated
-                  </List.Item>
-                  <List.Item>
-		    Then download the schedule below after picking rotation orders
-                  </List.Item>
-                </List>
-		<label>Start Date (default is 2018-2019 start date):</label>
+		Pick first day of rotations (not including transition course); the rest of the dates will be automatically generated
                 <StartDateSelect />
               </Message.Content>
             </Message>
