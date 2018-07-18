@@ -12,7 +12,7 @@ const initial_state = {
     endDate: 'April 26, 2019',
 
     fces1: [
-        ["1a", ['June 4, 2018', 'June 8, 2018']],
+        ["1a", ['March 14, 2018', 'June 8, 2018']],
         ["1b", ['July 9, 2018', 'July 13, 2018']],
         ["1c", ['August 16, 2018', 'August 20, 2018']]
     ],
