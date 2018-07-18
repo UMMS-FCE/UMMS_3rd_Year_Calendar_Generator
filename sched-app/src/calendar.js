@@ -86,7 +86,7 @@ class Calendar extends React.Component {
         }
 
         return (
-            <Grid container columns={4}>
+            <Grid container columns={5}>
               {months}
             </Grid>
         );
