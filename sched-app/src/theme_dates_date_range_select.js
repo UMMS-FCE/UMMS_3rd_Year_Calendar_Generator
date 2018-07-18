@@ -14,8 +14,9 @@ class NamedDateRangeSelect extends React.Component {
 
         return (
             <Grid.Row>
-              <Grid.Column width={12}>
+              <Grid.Column width={3}>
                 {title}
+                <br />
                 <DateRangeSelect dates={dates}
                                  onChange={(d) => {
                                      this.props.actions.setDates(this.props.block,

@@ -33,7 +33,7 @@ export class DateRangeSelect extends React.Component {
         const d2 = this.props.dates[1];
 
         return (
-            <div>
+            <React.Fragment>
               <DateInput
                 name="date"
                 placeholder="Date"
@@ -54,7 +54,7 @@ export class DateRangeSelect extends React.Component {
                   onChange={(e, {name, value}) => {
                       this.props.onChange([d1, value]);
                   }} />
-            </div>
+            </React.Fragment>
         );
     }
 }
