@@ -25,9 +25,7 @@ class ThematicSectionOrderDropdown extends React.Component {
     render(){
         return (
             <Dropdown
-              placeholder={this.props.thematic_section_order ?
-                           this.props.thematic_section_order :
-              'Select Thematic Section Order'}
+              placeholder='select order'
               fluid
               selection
               options={thematic_section_order_options}
