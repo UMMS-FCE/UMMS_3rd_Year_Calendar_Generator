@@ -48,13 +48,13 @@ const initial_state = {
     ],
 
     block3: [
-        [ "Interstitial Day", ['2019-01-02'] ],
-        [ "A block", ['2019-01-03', '2019-02-08'] ],
-        [ "B block", ['2019-02-11', '2019-03-15']],
-        [ "Spring vacation", ['2019-03-16', '2019-03-24'] ],
-        [ "C block", ['2019-03-25', '2019-04-25'] ],
-        [ "Careers in Medicine", ['2019-04-25'] ],
-        [ "Interstitial", ['2019-04-26'] ]
+        [ "Interstitial Day", ['January 2, 2019'] ],
+        [ "A block", ['January 3, 2019', 'February 8, 2019'] ],
+        [ "B block", ['February 11, 2019', 'March 15, 2019']],
+        [ "Spring vacation", ['March 16, 2019', 'March 24, 2019'] ],
+        [ "C block", ['March 25, 2019', 'April 25, 2019'] ],
+        [ "Careers in Medicine", ['April 25, 2019'] ],
+        [ "Interstitial", ['April 26, 2019'] ]
     ],
 };
 
