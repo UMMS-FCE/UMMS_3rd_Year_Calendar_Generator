@@ -65,6 +65,8 @@ export const reducers = (state = initial_state, action) => {
     switch (action.type){
     case Actions.SET_START_DATE:
         return {...state, startDate: action.startDate };
+    case Actions.SET_END_DATE:
+        return {...state, endDate: action.endDate };
     case Actions.SET_THEMATIC_SECTION_ORDER:
         return {...state,
                 thematic_section_order: action.thematic_section_order.value,

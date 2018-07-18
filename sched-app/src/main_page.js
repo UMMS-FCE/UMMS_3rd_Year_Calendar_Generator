@@ -5,11 +5,13 @@ import { connect } from 'react-redux';
 import { Message, Grid, Header, Tab } from 'semantic-ui-react';
 
 import StartDateSelect from './startDateSelect';
+import EndDateSelect from './endDateSelect';
 import ThematicSectionOrderDropdown from './theme_order';
 import ThematicFamilyOrderDropdown from './theme_family_order';
 import ThematicSurgeryOrderDropdown from './theme_surg_order';
 import ThematicMedOrderDropdown from './theme_med_order';
 import ThemeDates from './theme_dates';
+import Calendar from './calendar';
 
 import * as Actions from './actions';
 
@@ -21,6 +23,20 @@ class ChooseStartDate extends React.Component {
                 <Message.Header>Pick Start Date</Message.Header>
 		Pick first day of rotations (not including transition course)
                 <StartDateSelect />
+              </Message.Content>
+            </Message>
+        );
+    }
+}
+
+class ChooseEndDate extends React.Component {
+    render() {
+	return (
+            <Message icon>
+              <Message.Content>
+                <Message.Header>Pick End Date</Message.Header>
+		Pick first day of rotations (not including transition course)
+                <EndDateSelect />
               </Message.Content>
             </Message>
         );
@@ -145,9 +161,13 @@ class TabMain extends React.Component {
                 <Grid.Row>
                   <Grid.Column width={3}>
                     <ChooseStartDate />
+                    <ChooseEndDate />
                     <ChooseThematicSectionOrder />
                     {thematic_section_order &&
                     <ChooseRotationOrders themes={themes} />}
+                  </Grid.Column>
+                  <Grid.Column width={9}>
+                    <Calendar />
                   </Grid.Column>
                 </Grid.Row>
               </Grid>
@@ -163,8 +183,8 @@ class MainPage extends React.Component {
         const panes = [
             { menuItem: 'Main', render: () => (
                 <TabMain {...{thematic_section_order, themes}} />) },
-                { menuItem: 'Block Dates', render: () => (
-                    <TabBlockDates {...{themes}} /> )},
+            { menuItem: 'Block Dates', render: () => (
+                <TabBlockDates {...{themes}} /> )},
             { menuItem: 'FCE Dates', render: () => <TabFceDates /> }
         ];
 
