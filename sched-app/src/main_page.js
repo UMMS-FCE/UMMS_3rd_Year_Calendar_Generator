@@ -10,6 +10,7 @@ import ThematicSectionOrderDropdown from './thematic_order';
 import ThematicFamilyOrderDropdown from './theme_family_order';
 import ThematicSurgeryOrderDropdown from './theme_surg_order';
 import ThematicMedOrderDropdown from './theme_med_order';
+import ThemeDates from './theme_dates';
 
 import * as Actions from './actions';
 
@@ -109,13 +110,13 @@ class MainPage extends React.Component {
                   </Grid.Column>
 
                   <Grid.Column width={3}>
-
+                    <ThemeDates block={"block1"}/>
                   </Grid.Column>
                   <Grid.Column width={3}>
-
+                    <ThemeDates block={"block2"}/>
                   </Grid.Column>
                   <Grid.Column width={3}>
-
+                    <ThemeDates block={"block3"}/>
                   </Grid.Column>
 
                 </Grid.Row>

@@ -17,7 +17,7 @@ export class DateSelect extends React.Component {
             <DateInput
               name="date"
               placeholder="Date"
-              value={this.props.value}
+              value={this.props.date}
               iconPosition="left"
               dateFormat="MMMM DD, YYYY"
               onChange={(e, {name, value}) => {
@@ -28,19 +28,17 @@ export class DateSelect extends React.Component {
 }
 
 export class DateRangeSelect extends React.Component {
-    state = { datesRange: '' };
-
     render() {
         return (
             <DatesRangeInput
               name="datesRange"
               placeholder="From - To"
-              value={this.state.datesRange}
+              value={this.props.dates}
               iconPosition="left"
               dateFormat="MMMM DD, YYYY"
               onChange={(e, {name, value}) => {
-                  console.log(name, value);
-                  this.setState({ [name]: value })
+                  console.log(value);
+                  this.props.onChange(value);
               }} />
         );
     }
@@ -100,3 +98,15 @@ export const getArrayOfWeeks = (referenceDate, weeks = 6 ) => {
     }
     return weeksList;
 };
+
+
+export const assert = (condition, message) => {
+    // https://stackoverflow.com/a/15313435
+    if (!condition) {
+        message = message || "Assertion failed";
+        if (typeof Error !== "undefined") {
+            throw new Error(message);
+        }
+        throw message; // Fallback
+    }
+}

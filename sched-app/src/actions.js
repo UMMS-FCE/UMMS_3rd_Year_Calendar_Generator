@@ -17,3 +17,7 @@ export const setThematicFamilyOrder = (order) => ({
 export const SET_THEMATIC_SURGERY_ORDER = 'SET_THEMATIC_SURGERY_ORDER'
 export const setThematicSurgeryOrder = (order) => ({
     type: SET_THEMATIC_SURGERY_ORDER, order});
+
+export const SET_DATES = 'SET_DATES'
+export const setDates = (block, idx, key, dates) => ({
+    type: SET_DATES, block, idx, key, dates});

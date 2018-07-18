@@ -1,4 +1,5 @@
 import * as Actions from './actions';
+import {assert} from './utils';
 
 const initial_state = {
 
@@ -12,34 +13,34 @@ const initial_state = {
     themes: ['', '', ''],
 
     block1: [
-        { "a_dates": ['2018-05-07', '2018-06-08'] },
-        { "interstitial": ['2018-06-11'] },
-        { "b_dates": ['2018-06-12', '2018-07-13']},
-        { "c dates": ['2018-07-16', '2018-08-16']},
-        { "interstitial": ['2018-08-17'] },
-        { "summer_vacation" : ['2018-08-18', '2018-08-26']}
+        [ "A block", ['2018-05-07', '2018-06-08'] ],
+        [ "Interstitial Day", ['2018-06-11'] ],
+        [ "B block", ['2018-06-12', '2018-07-13']],
+        [ "C block", ['2018-07-16', '2018-08-16']],
+        [ "Interstitial Day", ['2018-08-17'] ],
+        [ "Summer vacation" , ['2018-08-18', '2018-08-26']]
     ],
 
     block2: [
-        { "a_dates": ['2018-08-27', '2018-09-28'] },
-        { "b_dates": ['2018-10-01', '2018-10-31'] },
-        { "interstitial": ['2018-11-01'] },
-        { "careers_in_medicine": ['2018-11-02'] },
-        { "c_dates": ['2018-11-05', '2018-12-13']},
-        { "interstitial": ['2018-12-14'] },
-        { "interstitial": ['2018-12-17'] },
-        { "careers_in_medicine": ['2018-12-18'] },
-        { "winter_vacation": ['2018-12-19', '2019-01-01'] }
+        [ "A block", ['2018-08-27', '2018-09-28'] ],
+        [ "B block", ['2018-10-01', '2018-10-31'] ],
+        [ "Interstitial Day", ['2018-11-01'] ],
+        [ "Careers in medicine", ['2018-11-02'] ],
+        [ "C Block", ['2018-11-05', '2018-12-13']],
+        [ "Interstitial Day", ['2018-12-14'] ],
+        [ "Interstitial Day", ['2018-12-17'] ],
+        [ "Careers in Medicine", ['2018-12-18'] ],
+        [ "Winter vacation", ['2018-12-19', '2019-01-01'] ]
     ],
 
     block3: [
-        { "interstitial": ['2019-01-02'] },
-        { "a_dates": ['2019-01-03', '2019-02-08'] },
-        { "b_dates": ['2019-02-11', '2019-03-15']},
-        { "spring_vacation": ['2019-03-16', '2019-03-24'] },
-        { "c_dates": ['2019-03-25', '2019-04-25'] },
-        { "careers_in_medicine": ['2019-04-25'] },
-        { "interstitial": ['2019-04-26'] }
+        [ "Interstitial Day", ['2019-01-02'] ],
+        [ "A block", ['2019-01-03', '2019-02-08'] ],
+        [ "B block", ['2019-02-11', '2019-03-15']],
+        [ "Spring vacation", ['2019-03-16', '2019-03-24'] ],
+        [ "C block", ['2019-03-25', '2019-04-25'] ],
+        [ "Careers in Medicine", ['2019-04-25'] ],
+        [ "Interstitial", ['2019-04-26'] ]
     ],
 
     fces1: {
@@ -77,7 +78,13 @@ const reducers = (state = initial_state, action) => {
             thematic_surgery_order: action.order.value };
     case Actions.SET_THEMATIC_FAMILY_ORDER:
         return {...state,
-            thematic_family_order: action.order.value };
+                thematic_family_order: action.order.value };
+    case Actions.SET_DATES:
+        let b = state[action.block];
+        assert(action.key === b[action.idx][0]);
+        b[action.idx][1] = action.dates;
+        return {...state,
+                [action.block]: b};
     default:
         return state;
     }
