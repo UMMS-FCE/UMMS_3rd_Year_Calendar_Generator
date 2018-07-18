@@ -32,12 +32,10 @@ class ThemeDates extends React.Component {
         }
 
         return (
-            <Message icon>
+            <Message compact>
               <Message.Content>
                 <Message.Header>{this.props.theme}</Message.Header>
-                <Grid container columns={2}>
-                  {a}
-                </Grid>
+                {a}
               </Message.Content>
             </Message>
         );

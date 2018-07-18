@@ -43,7 +43,6 @@ export class DateRangeSelect extends React.Component {
                 onChange={(e, {name, value}) => {
                     this.props.onChange([value, d2]);
                 }} />
-                <br />
                 {"to"}
                 <DateInput
                   name="date"
