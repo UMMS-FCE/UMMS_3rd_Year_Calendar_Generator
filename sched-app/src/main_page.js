@@ -13,6 +13,7 @@ import ThematicMedOrderDropdown from './theme_med_order';
 import ThemeDates from './theme_dates';
 import Calendar from './calendar';
 
+import {isFamilyTheme} from './utils';
 import * as Actions from './actions';
 
 class ChooseStartDate extends React.Component {
@@ -22,6 +23,7 @@ class ChooseStartDate extends React.Component {
               <Message.Content>
                 <Message.Header>Pick Start Date</Message.Header>
 		Pick first day of rotations (not including transition course)
+                <br />
                 <StartDateSelect />
               </Message.Content>
             </Message>
@@ -36,6 +38,7 @@ class ChooseEndDate extends React.Component {
               <Message.Content>
                 <Message.Header>Pick End Date</Message.Header>
 		Pick last day of rotations (not including transition course)
+                <br />
                 <EndDateSelect />
               </Message.Content>
             </Message>
@@ -79,31 +82,32 @@ class ChooseRotationOrders extends React.Component {
     }
 }
 
-// const dr = moment.range(fces3["a"]);
-// console.log(fces3["a"]);
-// for (let day of dr.by('day')) {
-//     console.log(day.format('YYYY-MM-DD'));
-// }
-
-
 class TabFceDates extends React.Component {
     render() {
+        const {themes} = this.props;
+
         return (
             <Tab.Pane>
               <Grid>
                 <Grid.Row>
-                  <Grid.Column width={3}>
-                    <ThemeDates block={"fces1"}
-                                theme={"Block1 FCE weeks"}/>
-                  </Grid.Column>
-                  <Grid.Column width={3}>
-                    <ThemeDates block={"fces2"}
-                                theme={"Block2 FCE weeks"}/>
-                  </Grid.Column>
-                  <Grid.Column width={3}>
-                    <ThemeDates block={"fces3"}
-                                theme={"Block3 FCE weeks"}/>
-                  </Grid.Column>
+                  { !isFamilyTheme(themes[0]) &&
+                      <Grid.Column width={4}>
+                            <ThemeDates block={"fces1"}
+                                            theme={"Theme 1 FCE weeks"}/>
+                          </Grid.Column>
+                      }
+                      { !isFamilyTheme(themes[1]) &&
+                          <Grid.Column width={4}>
+                                <ThemeDates block={"fces2"}
+                                                theme={"Theme 2 FCE weeks"}/>
+                              </Grid.Column>
+                          }
+                          { !isFamilyTheme(themes[2]) &&
+                              <Grid.Column width={4}>
+                                    <ThemeDates block={"fces3"}
+                                                    theme={"Theme 3 FCE weeks"}/>
+                                  </Grid.Column>
+                              }
 
                 </Grid.Row>
               </Grid>
@@ -112,22 +116,22 @@ class TabFceDates extends React.Component {
     }
 }
 
-class TabBlockDates extends React.Component {
+class TabRotationDates extends React.Component {
     render() {
         const {themes} = this.props;
         return (
             <Tab.Pane>
               <Grid>
                 <Grid.Row>
-                  <Grid.Column width={3}>
+                  <Grid.Column width={4}>
                     <ThemeDates block={"block1"}
                                 theme={themes[0]}/>
                   </Grid.Column>
-                  <Grid.Column width={3}>
+                  <Grid.Column width={4}>
                     <ThemeDates block={"block2"}
                                 theme={themes[1]}/>
                   </Grid.Column>
-                  <Grid.Column width={3}>
+                  <Grid.Column width={4}>
                     <ThemeDates block={"block3"}
                                 theme={themes[2]}/>
                   </Grid.Column>
@@ -145,6 +149,7 @@ class TabMain extends React.Component {
             <Tab.Pane>
               <Grid>
                 <Grid.Row>
+
                   <Grid.Column width={3}>
                     <ChooseStartDate />
                     <ChooseEndDate />
@@ -152,7 +157,11 @@ class TabMain extends React.Component {
                     {thematic_section_order &&
                     <ChooseRotationOrders themes={themes} />}
                   </Grid.Column>
-                  <Calendar />
+
+                  <Grid.Column width={13}>
+                    <Calendar />
+                  </Grid.Column>
+
                 </Grid.Row>
               </Grid>
             </Tab.Pane>
@@ -167,9 +176,10 @@ class MainPage extends React.Component {
         const panes = [
             { menuItem: 'Main', render: () => (
                 <TabMain {...{thematic_section_order, themes}} />) },
-            { menuItem: 'Block Dates', render: () => (
-                <TabBlockDates {...{themes}} /> )},
-            { menuItem: 'FCE Dates', render: () => <TabFceDates /> }
+            { menuItem: 'Adjust Rotation Dates', render: () => (
+                <TabRotationDates {...{themes}} /> )},
+            { menuItem: 'Adjust FCE Dates', render: () => (
+                <TabFceDates {...{themes}} /> ) }
         ];
 
         return (

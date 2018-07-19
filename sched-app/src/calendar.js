@@ -2,15 +2,19 @@ import React from 'react'
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import { Message, Grid } from 'semantic-ui-react';
+import { Segment, Grid, Header, Button, Table, Popup } from 'semantic-ui-react';
 
 import * as Actions from './actions';
-import { getArrayOfWeeks } from './utils';
+import { getArrayOfWeeks, isFamilyTheme, DateFormat } from './utils';
+
+import html2pdf from 'html2pdf.js';
 
 // for date manipulation
 import Moment from 'moment';
 import { extendMoment } from 'moment-range';
 const moment = extendMoment(Moment);
+
+const MonthsPerPage = 4;
 
 class Week extends React.Component {
     render(){
@@ -27,25 +31,54 @@ class Week extends React.Component {
             }
 
             const tdStyle = {};
-            const dayStr = day.format('MMMM D, YYYY');
+            const dayStr = day.format(DateFormat);
+            let shortTitle = '';
+            let title = '';
+            let theme = '';
+            let rotation = '';
             if(allDays.hasOwnProperty(dayStr)){
                 if(inThisMonth){
-                    tdStyle["backgroundColor"] = allDays[dayStr];
+                    tdStyle["backgroundColor"] = allDays[dayStr].color;
+                }
+                theme = allDays[dayStr].theme;
+                rotation = allDays[dayStr].rotation;
+                title = allDays[dayStr].title;
+
+                shortTitle = title.slice(0, 7);
+                if(rotation){
+                    shortTitle = rotation.slice(0, 7);
                 }
             }
 
-            a.push(
-                <td style={tdStyle} key={day.format('MMDD')} >
-                  <span style={textStyle}>
+            const key = day.format('MMDD');
+            const td = (
+                <Table.Cell style={tdStyle} key={key} >
+                  <div style={textStyle}>
                     {dayNum}
+                  </div>
+                  <span style={textStyle}>
+                    {shortTitle}
                   </span>
-                </td>);
+                </Table.Cell>);
+            const popup = (
+                <div>
+                  <div>{theme}</div>
+                  <div>{rotation}</div>
+                  <div>{title}</div>
+                </div>);
+            a.push(
+                <Popup
+                  key={key}
+                  trigger={td}
+                  content={popup}
+                  header={day.format(DateFormat)}
+                  />);
         }
 
         return (
-            <tr>
+            <Table.Row>
               {a}
-            </tr>
+            </Table.Row>
         );
     }
 }
@@ -68,16 +101,16 @@ class Month extends React.Component {
 
         return (
             <Grid.Column>
-              <Message icon>
-                <Message.Content>
-                  <Message.Header>{month}{" "}{year}</Message.Header>
-                  <table>
-                    <tbody>
-                      {a}
-                    </tbody>
-                  </table>
-                </Message.Content>
-              </Message>
+              <Segment>
+                <Header as="h2">
+                  {month}{" "}{year}
+                </Header>
+                <Table fixed compact={"very"}>
+                  <Table.Body>
+                    {a}
+                  </Table.Body>
+                </Table>
+              </Segment>
             </Grid.Column>
         );
     }
@@ -85,53 +118,57 @@ class Month extends React.Component {
 
 class Calendar extends React.Component {
     computeDays = () => {
-        const colors = {
-            "Clerkship": "#56B4E9",
-            "A block": "#56B4E9",
-            "B block": "#56B4E9",
-            "C block": "#56B4E9",
-
-            "Interstitial Day": "#0072B2",
-            "Spring Vacation": "#009E73",
-            "Summer Vacation": "#009E73",
-            "Winter Vacation": "#009E73",
-
-            "FCE": "#F0E442",
-            "1a": "#F0E442",
-            "1b": "#F0E442",
-            "1c": "#F0E442",
-            "2a": "#F0E442",
-            "2b": "#F0E442",
-            "2c": "#F0E442",
-            "3a": "#F0E442",
-            "3b": "#F0E442",
-            "3c": "#F0E442",
-
-            "Careers in Medicine": "#CC79A7"
-        }
-
         let allDays = {};
         const {block1, block2, block3, fces1, fces2, fces3} = this.props;
-        for(const block of [block1, block2, block3, fces1, fces2, fces3]){
+        const {colors, themes} = this.props;
+
+        let blocks = [block1, block2, block3];
+        if(!isFamilyTheme(themes[0])){
+            blocks.push(fces1);
+        }
+        if(!isFamilyTheme(themes[1])){
+            blocks.push(fces2);
+        }
+        if(!isFamilyTheme(themes[2])){
+            blocks.push(fces3);
+        }
+
+        for(const [idx, block] of blocks.entries()){
+            let theme = themes[idx];
+            if(idx > 2){
+                theme = 'FCE';
+            }
+
             for(const e of block){
                 const title = e[0];
                 const dates = e[1];
+                const color = colors[title];
+
+                let rotation = '';
+                const blockIdx = ['A block', 'B block', 'C block'].indexOf(title);
+                if(theme && blockIdx >= 0){
+                    rotation = this.props.rotationsByTheme[theme][blockIdx];
+                } else if ('FCE' === theme){
+                    rotation = 'FCE';
+                }
+
                 if(1 === dates.length){
                     if(!colors.hasOwnProperty(title)){
                         console.log("missing", title);
                     }
-                    allDays[dates[0]] = colors[title];
+                    const day = dates[0];
+                    allDays[day] = { color, title, theme, rotation };
                 } else {
-                    const s = moment(dates[0], 'MMMM D, YYYY');
-                    const e = moment(dates[1], 'MMMM D, YYYY');
+                    const s = moment(dates[0], DateFormat);
+                    const e = moment(dates[1], DateFormat);
 
                     const wy = moment.range(s, e);
                     for(const dayObj of wy.by('day')){
-                        const day = dayObj.format('MMMM D, YYYY');
+                        const day = dayObj.format(DateFormat);
                         if(!colors.hasOwnProperty(title)){
                             console.log("missing", title);
                         }
-                        allDays[day] = colors[title];
+                        allDays[day] = { color, title, theme, rotation };
                     }
                 }
             }
@@ -140,25 +177,72 @@ class Calendar extends React.Component {
         return allDays;
     }
 
+    makePDF = () => {
+        const d = this.refs.cal;
+        const opt = {
+            margin:       0.25,
+            filename:     'calendar.pdf',
+            image:        { type: 'jpeg', quality: 0.98 },
+            html2canvas:  { scale: 1 },
+            jsPDF:        { unit: 'in', format: 'letter',
+                            orientation: 'portrait' }
+        };
+
+        html2pdf().from(d).set(opt).save()
+            .then(done => {
+                this.loader = false;
+            });
+    }
+
     render(){
         const allDays = this.computeDays();
 
-        const sd = moment(this.props.startDate, 'MMMM D, YYYY');
-        const ed = moment(this.props.endDate, 'MMMM D, YYYY');
+        const sd = moment(this.props.startDate, DateFormat);
+        const ed = moment(this.props.endDate, DateFormat);
 
         const wy = moment.range(sd, ed);
         let months = []
 
-        for (let monthObj of wy.by('month')) {
+        for (const monthObj of wy.by('month')) {
             months.push(<Month monthObj={monthObj}
                         key={monthObj.format('MM-YYYY')}
                         allDays={allDays} />);
         }
 
+        let a = []
+        for(const [idx, month] of months.entries()){
+            if(idx > 0 && 0 === idx % MonthsPerPage){
+                a.push(<div className="html2pdf__page-break"
+                       key={[idx, 'page']} />);
+            }
+            a.push(month);
+        }
+
         return (
-            <Grid container columns={5}>
-              {months}
-            </Grid>
+            <div>
+              <Grid>
+                <Grid.Row>
+                  <Grid.Column width={1}>
+                    <Button onClick={() => { this.makePDF() }}>PDF</Button>
+                  </Grid.Column>
+                  <Grid.Column width={1}>
+                  </Grid.Column>
+                  <Grid.Column width={14}>
+                    <Header as="h2" block={false}>
+                      {this.props.thematic_section_order}
+                    </Header>
+                  </Grid.Column>
+                </Grid.Row>
+              </Grid>
+
+              <div ref="cal">
+                <Grid columns={2}>
+                  <Grid.Row>
+                    {a}
+                  </Grid.Row>
+                </Grid>
+              </div>
+            </div>
         );
     }
 }
@@ -172,7 +256,10 @@ const mapStateToProps = (state, props) => ({
     fces1: state.main.fces1,
     fces2: state.main.fces2,
     fces3: state.main.fces3,
-
+    colors: state.main.colors,
+    themes: state.main.themes,
+    thematic_section_order: state.main.thematic_section_order,
+    rotationsByTheme: state.main.rotationsByTheme,
 });
 const mapDispatchToProps = (dispatch) => ({
     actions: bindActionCreators(Actions, dispatch),

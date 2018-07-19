@@ -1,101 +1,59 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-import { DateInput } from 'semantic-ui-calendar-react';
-import '../node_modules/semantic-ui-calendar-react/dist/css/calendar.min.css';
+import 'react-dates/initialize';
+import { DateRangePicker, SingleDatePicker } from 'react-dates';
+import 'react-dates/lib/css/_datepicker.css';
+import './react_dates_overrides.css';
 
-import { Grid } from 'semantic-ui-react';
+// for date manipulation
+import Moment from 'moment';
+import { extendMoment } from 'moment-range';
+const moment = extendMoment(Moment);
 
-import jsPDF from 'jspdf';
-import html2canvas from 'html2canvas';
+export const DateFormat = 'MMMM D, YYYY';
 
 export class DateSelect extends React.Component {
+    state = {focused: false};
+
     render() {
         return (
-            <DateInput
-              name="date"
-              placeholder="Date"
-              value={this.props.date}
-              iconPosition="left"
-              dateFormat="MMMM D, YYYY"
-              onChange={(e, {name, value}) => {
-                  this.props.onChange(value);
-              }} />
+            <SingleDatePicker
+              id={this.props.key}
+              isOutsideRange={() => false}
+              date={moment(this.props.date, DateFormat)}
+              focused={this.state.focused}
+              onDateChange={this.props.onChange}
+              onFocusChange={({ focused }) => this.setState({ focused })}
+              />
         );
     }
 }
 
 export class DateRangeSelect extends React.Component {
+    state = {focusedInput: null}
+
     render() {
-        const d1 = this.props.dates[0];
-        const d2 = this.props.dates[1];
+        const d1 = moment(this.props.dates[0], DateFormat);
+        const d2 = moment(this.props.dates[1], DateFormat);
 
         return (
-            <React.Fragment>
-              <Grid.Column width={3}>
-                <DateInput
-                name="date"
-                placeholder="Date"
-                value={d1}
-                iconPosition="left"
-                dateFormat="MMMM D, YYYY"
-                onChange={(e, {name, value}) => {
-                    this.props.onChange([value, d2]);
-                  }} />
-              </Grid.Column>
-
-              <Grid.Column width={1}>
-                {"to"}
-              </Grid.Column>
-
-              <Grid.Column width={3}>
-                <DateInput
-                  name="date"
-                  placeholder="Date"
-                  value={d2}
-                  iconPosition="left"
-                  dateFormat="MMMM D, YYYY"
-                  onChange={(e, {name, value}) => {
-                      this.props.onChange([d1, value]);
-                  }} />
-              </Grid.Column>
-            </React.Fragment>
+            <DateRangePicker
+              startDate={d1}
+              startDateId="d1"
+              endDate={d2}
+              endDateId="d2"
+              isOutsideRange={() => false}
+              onDatesChange={({ startDate, endDate }) => {
+                  if(!startDate || !endDate){
+                      return;
+                  }
+                  this.props.onChange([startDate.format(DateFormat),
+                                       endDate.format(DateFormat)])
+              }}
+              focusedInput={this.state.focusedInput}
+              onFocusChange={focusedInput => this.setState({ focusedInput })}
+              />
         );
-    }
-}
-
-export class Export extends Component {
-    // from https://stackoverflow.com/a/45017234
-    printDocument() {
-        const input = document.getElementById('divToPrint');
-        html2canvas(input)
-            .then((canvas) => {
-                const imgData = canvas.toDataURL('image/png');
-                const pdf = new jsPDF();
-                pdf.addImage(imgData, 'JPEG', 0, 0);
-                // pdf.output('dataurlnewwindow');
-                pdf.save("download.pdf");
-            })
-        ;
-    }
-
-    render() {
-        return (
-            <div>
-              <div className="mb5">
-                <button onClick={this.printDocument}>Print</button>
-              </div>
-              <div id="divToPrint" className="mt4"
-                   style={{
-                       backgroundColor: '#f5f5f5',
-                       width: '210mm',
-                       minHeight: '297mm',
-                       marginLeft: 'auto',
-                       marginRight: 'auto'
-                   }}>
-                <div>Note: Here the dimensions of div are same as A4</div>
-                <div>You Can add any component here</div>
-              </div>
-            </div>);
     }
 }
 
@@ -128,4 +86,8 @@ export const assert = (condition, message) => {
         }
         throw message; // Fallback
     }
+}
+
+export const isFamilyTheme = (theme) => {
+    return 'Family' === theme;
 }
