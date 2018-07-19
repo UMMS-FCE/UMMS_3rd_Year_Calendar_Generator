@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import 'react-dates/initialize';
 import { DateRangePicker, SingleDatePicker } from 'react-dates';
 import 'react-dates/lib/css/_datepicker.css';
+import './react_dates_overrides.css';
 
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
