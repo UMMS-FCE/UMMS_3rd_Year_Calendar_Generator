@@ -85,33 +85,10 @@ class Month extends React.Component {
 
 class Calendar extends React.Component {
     computeDays = () => {
-        const colors = {
-            "Clerkship": "#56B4E9",
-            "A block": "#56B4E9",
-            "B block": "#56B4E9",
-            "C block": "#56B4E9",
-
-            "Interstitial Day": "#0072B2",
-            "Spring Vacation": "#009E73",
-            "Summer Vacation": "#009E73",
-            "Winter Vacation": "#009E73",
-
-            "FCE": "#F0E442",
-            "1a": "#F0E442",
-            "1b": "#F0E442",
-            "1c": "#F0E442",
-            "2a": "#F0E442",
-            "2b": "#F0E442",
-            "2c": "#F0E442",
-            "3a": "#F0E442",
-            "3b": "#F0E442",
-            "3c": "#F0E442",
-
-            "Careers in Medicine": "#CC79A7"
-        }
-
         let allDays = {};
         const {block1, block2, block3, fces1, fces2, fces3} = this.props;
+        const {colors} = this.props;
+
         for(const block of [block1, block2, block3, fces1, fces2, fces3]){
             for(const e of block){
                 const title = e[0];
@@ -172,7 +149,7 @@ const mapStateToProps = (state, props) => ({
     fces1: state.main.fces1,
     fces2: state.main.fces2,
     fces3: state.main.fces3,
-
+    colors: state.main.colors,
 });
 const mapDispatchToProps = (dispatch) => ({
     actions: bindActionCreators(Actions, dispatch),

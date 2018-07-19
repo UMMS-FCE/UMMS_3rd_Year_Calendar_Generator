@@ -129,3 +129,7 @@ export const assert = (condition, message) => {
         throw message; // Fallback
     }
 }
+
+export const isFamilyTheme = (theme) => {
+    return 'Family' === theme;
+}

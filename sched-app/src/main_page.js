@@ -13,6 +13,7 @@ import ThematicMedOrderDropdown from './theme_med_order';
 import ThemeDates from './theme_dates';
 import Calendar from './calendar';
 
+import {isFamilyTheme} from './utils';
 import * as Actions from './actions';
 
 class ChooseStartDate extends React.Component {
@@ -79,31 +80,32 @@ class ChooseRotationOrders extends React.Component {
     }
 }
 
-// const dr = moment.range(fces3["a"]);
-// console.log(fces3["a"]);
-// for (let day of dr.by('day')) {
-//     console.log(day.format('YYYY-MM-DD'));
-// }
-
-
 class TabFceDates extends React.Component {
     render() {
+        const {themes} = this.props;
+
         return (
             <Tab.Pane>
               <Grid>
                 <Grid.Row>
-                  <Grid.Column width={3}>
-                    <ThemeDates block={"fces1"}
-                                theme={"Block1 FCE weeks"}/>
-                  </Grid.Column>
-                  <Grid.Column width={3}>
-                    <ThemeDates block={"fces2"}
-                                theme={"Block2 FCE weeks"}/>
-                  </Grid.Column>
-                  <Grid.Column width={3}>
-                    <ThemeDates block={"fces3"}
-                                theme={"Block3 FCE weeks"}/>
-                  </Grid.Column>
+                  { !isFamilyTheme(themes[0]) &&
+                      <Grid.Column width={3}>
+                            <ThemeDates block={"fces1"}
+                                            theme={"Block1 FCE weeks"}/>
+                          </Grid.Column>
+                      }
+                      { !isFamilyTheme(themes[1]) &&
+                          <Grid.Column width={3}>
+                                <ThemeDates block={"fces2"}
+                                                theme={"Block2 FCE weeks"}/>
+                              </Grid.Column>
+                          }
+                          { !isFamilyTheme(themes[2]) &&
+                              <Grid.Column width={3}>
+                                    <ThemeDates block={"fces3"}
+                                                    theme={"Block3 FCE weeks"}/>
+                                  </Grid.Column>
+                              }
 
                 </Grid.Row>
               </Grid>
@@ -169,7 +171,8 @@ class MainPage extends React.Component {
                 <TabMain {...{thematic_section_order, themes}} />) },
             { menuItem: 'Block Dates', render: () => (
                 <TabBlockDates {...{themes}} /> )},
-            { menuItem: 'FCE Dates', render: () => <TabFceDates /> }
+            { menuItem: 'FCE Dates', render: () => (
+                <TabFceDates {...{themes}} /> ) }
         ];
 
         return (
