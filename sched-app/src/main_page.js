@@ -91,19 +91,19 @@ class TabFceDates extends React.Component {
                   { !isFamilyTheme(themes[0]) &&
                       <Grid.Column width={3}>
                             <ThemeDates block={"fces1"}
-                                            theme={"Block1 FCE weeks"}/>
+                                            theme={"Theme 1 FCE weeks"}/>
                           </Grid.Column>
                       }
                       { !isFamilyTheme(themes[1]) &&
                           <Grid.Column width={3}>
                                 <ThemeDates block={"fces2"}
-                                                theme={"Block2 FCE weeks"}/>
+                                                theme={"Theme 2 FCE weeks"}/>
                               </Grid.Column>
                           }
                           { !isFamilyTheme(themes[2]) &&
                               <Grid.Column width={3}>
                                     <ThemeDates block={"fces3"}
-                                                    theme={"Block3 FCE weeks"}/>
+                                                    theme={"Theme 3 FCE weeks"}/>
                                   </Grid.Column>
                               }
 
@@ -114,7 +114,7 @@ class TabFceDates extends React.Component {
     }
 }
 
-class TabBlockDates extends React.Component {
+class TabRotationDates extends React.Component {
     render() {
         const {themes} = this.props;
         return (
@@ -169,9 +169,9 @@ class MainPage extends React.Component {
         const panes = [
             { menuItem: 'Main', render: () => (
                 <TabMain {...{thematic_section_order, themes}} />) },
-            { menuItem: 'Block Dates', render: () => (
-                <TabBlockDates {...{themes}} /> )},
-            { menuItem: 'FCE Dates', render: () => (
+            { menuItem: 'Adjust Rotation Dates', render: () => (
+                <TabRotationDates {...{themes}} /> )},
+            { menuItem: 'Adjust FCE Dates', render: () => (
                 <TabFceDates {...{themes}} /> ) }
         ];
 
