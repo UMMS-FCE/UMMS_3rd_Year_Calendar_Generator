@@ -2,7 +2,7 @@ import React from 'react'
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import { Message, Grid, Header, Button } from 'semantic-ui-react';
+import { Container, Segment, Message, Grid, Header, Button, Table } from 'semantic-ui-react';
 
 import * as Actions from './actions';
 import { getArrayOfWeeks, isFamilyTheme, DateFormat } from './utils';
@@ -38,17 +38,17 @@ class Week extends React.Component {
             }
 
             a.push(
-                <td style={tdStyle} key={day.format('MMDD')} >
+                <Table.Cell style={tdStyle} key={day.format('MMDD')} >
                   <span style={textStyle}>
                     {dayNum}
                   </span>
-                </td>);
+                </Table.Cell>);
         }
 
         return (
-            <tr>
+            <Table.Row>
               {a}
-            </tr>
+            </Table.Row>
         );
     }
 }
@@ -71,16 +71,16 @@ class Month extends React.Component {
 
         return (
             <Grid.Column>
-              <Message icon>
-                <Message.Content>
-                  <Message.Header>{month}{" "}{year}</Message.Header>
-                  <table>
-                    <tbody>
-                      {a}
-                    </tbody>
-                  </table>
-                </Message.Content>
-              </Message>
+              <Segment>
+                <Header as="h2">
+                  {month}{" "}{year}
+                </Header>
+                <Table compact={"very"}>
+                  <Table.Body>
+                    {a}
+                  </Table.Body>
+                </Table>
+              </Segment>
             </Grid.Column>
         );
     }
@@ -144,13 +144,13 @@ class Calendar extends React.Component {
 
         const d = this.refs.cal;
         html2canvas(d)
-        .then((canvas) => {
-            const imgData = canvas.toDataURL('image/png');
-            const pdf = new jsPDF();
-            pdf.addImage(imgData, 'JPEG', 0, 0);
-            // pdf.output('dataurlnewwindow');
-            pdf.save("download.pdf");
-        });
+            .then((canvas) => {
+                const imgData = canvas.toDataURL('image/png');
+                const pdf = new jsPDF();
+                pdf.addImage(imgData, 'JPEG', 0, 0);
+                // pdf.output('dataurlnewwindow');
+                pdf.save("download.pdf");
+            });
     }
 
     render(){
@@ -179,10 +179,10 @@ class Calendar extends React.Component {
                     <Header as="h2" block={false}>
                       {this.props.thematic_section_order}
                     </Header>
-                    </Grid.Column>
+                  </Grid.Column>
                 </Grid.Row>
               </Grid>
-              <Grid container columns={5}>
+              <Grid stackable columns={3}>
                 {months}
               </Grid>
             </div>

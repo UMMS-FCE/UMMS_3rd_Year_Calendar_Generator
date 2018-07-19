@@ -149,6 +149,7 @@ class TabMain extends React.Component {
             <Tab.Pane>
               <Grid>
                 <Grid.Row>
+
                   <Grid.Column width={3}>
                     <ChooseStartDate />
                     <ChooseEndDate />
@@ -156,7 +157,11 @@ class TabMain extends React.Component {
                     {thematic_section_order &&
                     <ChooseRotationOrders themes={themes} />}
                   </Grid.Column>
-                  <Calendar />
+
+                  <Grid.Column width={13}>
+                    <Calendar />
+                  </Grid.Column>
+
                 </Grid.Row>
               </Grid>
             </Tab.Pane>
