@@ -121,15 +121,15 @@ class TabRotationDates extends React.Component {
             <Tab.Pane>
               <Grid>
                 <Grid.Row>
-                  <Grid.Column width={3}>
+                  <Grid.Column width={4}>
                     <ThemeDates block={"block1"}
                                 theme={themes[0]}/>
                   </Grid.Column>
-                  <Grid.Column width={3}>
+                  <Grid.Column width={4}>
                     <ThemeDates block={"block2"}
                                 theme={themes[1]}/>
                   </Grid.Column>
-                  <Grid.Column width={3}>
+                  <Grid.Column width={4}>
                     <ThemeDates block={"block3"}
                                 theme={themes[2]}/>
                   </Grid.Column>

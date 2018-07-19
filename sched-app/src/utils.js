@@ -1,64 +1,58 @@
 import React, { Component } from 'react';
 
-import { DateInput } from 'semantic-ui-calendar-react';
-import '../node_modules/semantic-ui-calendar-react/dist/css/calendar.min.css';
-
-import { Grid } from 'semantic-ui-react';
+import 'react-dates/initialize';
+import { DateRangePicker, SingleDatePicker } from 'react-dates';
+import 'react-dates/lib/css/_datepicker.css';
 
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 
+// for date manipulation
+import Moment from 'moment';
+import { extendMoment } from 'moment-range';
+const moment = extendMoment(Moment);
+
 export class DateSelect extends React.Component {
+    state = {focused: false};
+
     render() {
         return (
-            <DateInput
-              name="date"
-              placeholder="Date"
-              value={this.props.date}
-              iconPosition="left"
-              dateFormat="MMMM D, YYYY"
-              onChange={(e, {name, value}) => {
-                  this.props.onChange(value);
-              }} />
+            <SingleDatePicker
+              id={this.props.key}
+              isOutsideRange={() => false}
+              date={moment(this.props.date, 'MMMM D, YYYY')}
+              focused={this.state.focused}
+              onDateChange={this.props.onChange}
+              onFocusChange={({ focused }) => this.setState({ focused })}
+              />
         );
     }
 }
 
 export class DateRangeSelect extends React.Component {
+    state = {focusedInput: null}
+
     render() {
-        const d1 = this.props.dates[0];
-        const d2 = this.props.dates[1];
+        const d1 = moment(this.props.dates[0], 'MMMM D, YYYY');
+        const d2 = moment(this.props.dates[1], 'MMMM D, YYYY');
 
         return (
-            <React.Fragment>
-              <Grid.Column width={3}>
-                <DateInput
-                name="date"
-                placeholder="Date"
-                value={d1}
-                iconPosition="left"
-                dateFormat="MMMM D, YYYY"
-                onChange={(e, {name, value}) => {
-                    this.props.onChange([value, d2]);
-                  }} />
-              </Grid.Column>
-
-              <Grid.Column width={1}>
-                {"to"}
-              </Grid.Column>
-
-              <Grid.Column width={3}>
-                <DateInput
-                  name="date"
-                  placeholder="Date"
-                  value={d2}
-                  iconPosition="left"
-                  dateFormat="MMMM D, YYYY"
-                  onChange={(e, {name, value}) => {
-                      this.props.onChange([d1, value]);
-                  }} />
-              </Grid.Column>
-            </React.Fragment>
+            <DateRangePicker
+              startDate={d1}
+              startDateId="d1"
+              endDate={d2}
+              endDateId="d2"
+              isOutsideRange={() => false}
+              onDatesChange={({ startDate, endDate }) => {
+                  if(!startDate || !endDate){
+                      return;
+                  }
+                  this.props.onChange([startDate.format('MMMM D, YYYY'),
+                                       endDate.format('MMMM D, YYYY')])
+              }}
+              focusedInput={this.state.focusedInput}
+              onFocusChange={focusedInput => this.setState({ focusedInput })}
+              />
         );
     }
 }
