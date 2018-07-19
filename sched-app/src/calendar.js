@@ -35,11 +35,13 @@ class Week extends React.Component {
             let shortTitle = '';
             let title = '';
             let theme = '';
+            let rotation = '';
             if(allDays.hasOwnProperty(dayStr)){
                 if(inThisMonth){
                     tdStyle["backgroundColor"] = allDays[dayStr].color;
                 }
                 theme = allDays[dayStr].theme;
+                rotation = allDays[dayStr].rotation;
                 title = allDays[dayStr].title;
                 shortTitle = title.slice(0, 7);
             }
@@ -58,6 +60,9 @@ class Week extends React.Component {
                 <div>
                   <div>
                     {theme}
+                  </div>
+                  <div>
+                    {rotation}
                   </div>
                   <div>
                     {title}
@@ -132,7 +137,12 @@ class Calendar extends React.Component {
 
         for(const [idx, block] of blocks.entries()){
             const theme = themes[idx];
-            for(const e of block){
+
+            for(const [blockIdx, e] of block.entries()){
+                const rotation = '';
+                if(theme){
+                    rotation = this.props.rotationsByTheme[theme][blockIdx];
+                }
                 const title = e[0];
                 const dates = e[1];
                 const color = colors[title];
@@ -142,7 +152,7 @@ class Calendar extends React.Component {
                         console.log("missing", title);
                     }
                     const day = dates[0];
-                    allDays[day] = { color, title, theme};
+                    allDays[day] = { color, title, theme, rotation };
                 } else {
                     const s = moment(dates[0], DateFormat);
                     const e = moment(dates[1], DateFormat);
@@ -153,7 +163,7 @@ class Calendar extends React.Component {
                         if(!colors.hasOwnProperty(title)){
                             console.log("missing", title);
                         }
-                        allDays[day] = { color, title, theme};
+                        allDays[day] = { color, title, theme, rotation };
                     }
                 }
             }
@@ -244,6 +254,7 @@ const mapStateToProps = (state, props) => ({
     colors: state.main.colors,
     themes: state.main.themes,
     thematic_section_order: state.main.thematic_section_order,
+    rotationsByTheme: state.main.rotationsByTheme,
 });
 const mapDispatchToProps = (dispatch) => ({
     actions: bindActionCreators(Actions, dispatch),
