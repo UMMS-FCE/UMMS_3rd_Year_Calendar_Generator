@@ -34,10 +34,12 @@ class Week extends React.Component {
             const dayStr = day.format(DateFormat);
             let shortTitle = '';
             let title = '';
+            let theme = '';
             if(allDays.hasOwnProperty(dayStr)){
                 if(inThisMonth){
                     tdStyle["backgroundColor"] = allDays[dayStr].color;
                 }
+                theme = allDays[dayStr].theme;
                 title = allDays[dayStr].title;
                 shortTitle = title.slice(0, 7);
             }
@@ -52,11 +54,20 @@ class Week extends React.Component {
                     {shortTitle}
                   </span>
                 </Table.Cell>);
+            const popup = (
+                <div>
+                  <div>
+                    {theme}
+                  </div>
+                  <div>
+                    {title}
+                  </div>
+                </div>);
             a.push(
                 <Popup
                   key={key}
                   trigger={td}
-                  content={title}
+                  content={popup}
                   header={day.format(DateFormat)}
                   />);
         }
@@ -119,16 +130,19 @@ class Calendar extends React.Component {
             blocks.push(fces3);
         }
 
-        for(const block of blocks){
+        for(const [idx, block] of blocks.entries()){
+            const theme = themes[idx];
             for(const e of block){
                 const title = e[0];
                 const dates = e[1];
+                const color = colors[title];
+
                 if(1 === dates.length){
                     if(!colors.hasOwnProperty(title)){
                         console.log("missing", title);
                     }
-                    allDays[dates[0]] = { color: colors[title],
-                                          title: title };
+                    const day = dates[0];
+                    allDays[day] = { color, title, theme};
                 } else {
                     const s = moment(dates[0], DateFormat);
                     const e = moment(dates[1], DateFormat);
@@ -139,8 +153,7 @@ class Calendar extends React.Component {
                         if(!colors.hasOwnProperty(title)){
                             console.log("missing", title);
                         }
-                        allDays[day] = { color: colors[title],
-                                         title: title };
+                        allDays[day] = { color, title, theme};
                     }
                 }
             }
