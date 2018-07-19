@@ -5,6 +5,7 @@
   "private": true,
   "dependencies": {
     "html2canvas": "^1.0.0-alpha.12",
+    "html2pdf.js": "^0.9.0",
     "jspdf": "^1.4.1",
     "moment": "^2.22.2",
     "moment-range": "^4.0.1",

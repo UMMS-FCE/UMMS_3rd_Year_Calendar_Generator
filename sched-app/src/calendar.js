@@ -9,6 +9,7 @@ import { getArrayOfWeeks, isFamilyTheme, DateFormat } from './utils';
 
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
+import html2pdf from 'html2pdf.js';
 
 // for date manipulation
 import Moment from 'moment';
@@ -132,25 +133,20 @@ class Calendar extends React.Component {
     }
 
     makePDF = () => {
-        // from https://stackoverflow.com/a/45017234
-
-        // const style = {
-        //     backgroundColor: '#f5f5f5',
-        //     width: '210mm',
-        //     minHeight: '297mm',
-        //     marginLeft: 'auto',
-        //     marginRight: 'auto'
-        // };
-
         const d = this.refs.cal;
-        html2canvas(d)
-            .then((canvas) => {
-                const imgData = canvas.toDataURL('image/png');
-                const pdf = new jsPDF();
-                pdf.addImage(imgData, 'JPEG', 0, 0);
-                // pdf.output('dataurlnewwindow');
-                pdf.save("download.pdf");
-            });
+        var opt = {
+            margin:       0.25,
+            filename:     'calendar.pdf',
+            image:        { type: 'jpeg', quality: 0.98 },
+            html2canvas:  { scale: 1 },
+            jsPDF:        { unit: 'in', format: 'letter',
+                            orientation: 'landscape' }
+        };
+
+        const worker = html2pdf().from(d).set(opt).save()
+              .then(done => {
+                  this.loader = false;
+              });
     }
 
     render(){
@@ -175,7 +171,9 @@ class Calendar extends React.Component {
                   <Grid.Column width={1}>
                     <Button onClick={() => { this.makePDF() }}>PDF</Button>
                   </Grid.Column>
-                  <Grid.Column width={6}>
+                  <Grid.Column width={1}>
+                  </Grid.Column>
+                  <Grid.Column width={14}>
                     <Header as="h2" block={false}>
                       {this.props.thematic_section_order}
                     </Header>
