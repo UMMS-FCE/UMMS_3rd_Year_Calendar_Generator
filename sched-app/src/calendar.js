@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { Message, Grid } from 'semantic-ui-react';
 
 import * as Actions from './actions';
-import { getArrayOfWeeks } from './utils';
+import { getArrayOfWeeks, isFamilyTheme } from './utils';
 
 // for date manipulation
 import Moment from 'moment';
@@ -87,9 +87,20 @@ class Calendar extends React.Component {
     computeDays = () => {
         let allDays = {};
         const {block1, block2, block3, fces1, fces2, fces3} = this.props;
-        const {colors} = this.props;
+        const {colors, themes} = this.props;
 
-        for(const block of [block1, block2, block3, fces1, fces2, fces3]){
+        let blocks = [block1, block2, block3];
+        if(!isFamilyTheme(themes[0])){
+            blocks.push(fces1);
+        }
+        if(!isFamilyTheme(themes[1])){
+            blocks.push(fces2);
+        }
+        if(!isFamilyTheme(themes[2])){
+            blocks.push(fces3);
+        }
+
+        for(const block of blocks){
             for(const e of block){
                 const title = e[0];
                 const dates = e[1];
@@ -150,6 +161,7 @@ const mapStateToProps = (state, props) => ({
     fces2: state.main.fces2,
     fces3: state.main.fces3,
     colors: state.main.colors,
+    themes: state.main.themes,
 });
 const mapDispatchToProps = (dispatch) => ({
     actions: bindActionCreators(Actions, dispatch),
