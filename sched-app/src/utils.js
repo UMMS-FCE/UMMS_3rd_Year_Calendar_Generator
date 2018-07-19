@@ -13,6 +13,8 @@ import Moment from 'moment';
 import { extendMoment } from 'moment-range';
 const moment = extendMoment(Moment);
 
+export const DateFormat = 'MMMM D, YYYY';
+
 export class DateSelect extends React.Component {
     state = {focused: false};
 
@@ -21,7 +23,7 @@ export class DateSelect extends React.Component {
             <SingleDatePicker
               id={this.props.key}
               isOutsideRange={() => false}
-              date={moment(this.props.date, 'MMMM D, YYYY')}
+              date={moment(this.props.date, DateFormat)}
               focused={this.state.focused}
               onDateChange={this.props.onChange}
               onFocusChange={({ focused }) => this.setState({ focused })}
@@ -34,8 +36,8 @@ export class DateRangeSelect extends React.Component {
     state = {focusedInput: null}
 
     render() {
-        const d1 = moment(this.props.dates[0], 'MMMM D, YYYY');
-        const d2 = moment(this.props.dates[1], 'MMMM D, YYYY');
+        const d1 = moment(this.props.dates[0], DateFormat);
+        const d2 = moment(this.props.dates[1], DateFormat);
 
         return (
             <DateRangePicker
@@ -48,8 +50,8 @@ export class DateRangeSelect extends React.Component {
                   if(!startDate || !endDate){
                       return;
                   }
-                  this.props.onChange([startDate.format('MMMM D, YYYY'),
-                                       endDate.format('MMMM D, YYYY')])
+                  this.props.onChange([startDate.format(DateFormat),
+                                       endDate.format(DateFormat)])
               }}
               focusedInput={this.state.focusedInput}
               onFocusChange={focusedInput => this.setState({ focusedInput })}

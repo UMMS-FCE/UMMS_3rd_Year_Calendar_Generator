@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { Message, Grid } from 'semantic-ui-react';
 
 import * as Actions from './actions';
-import { getArrayOfWeeks, isFamilyTheme } from './utils';
+import { getArrayOfWeeks, isFamilyTheme, DateFormat } from './utils';
 
 // for date manipulation
 import Moment from 'moment';
@@ -27,7 +27,7 @@ class Week extends React.Component {
             }
 
             const tdStyle = {};
-            const dayStr = day.format('MMMM D, YYYY');
+            const dayStr = day.format(DateFormat);
             if(allDays.hasOwnProperty(dayStr)){
                 if(inThisMonth){
                     tdStyle["backgroundColor"] = allDays[dayStr];
@@ -110,12 +110,12 @@ class Calendar extends React.Component {
                     }
                     allDays[dates[0]] = colors[title];
                 } else {
-                    const s = moment(dates[0], 'MMMM D, YYYY');
-                    const e = moment(dates[1], 'MMMM D, YYYY');
+                    const s = moment(dates[0], DateFormat);
+                    const e = moment(dates[1], DateFormat);
 
                     const wy = moment.range(s, e);
                     for(const dayObj of wy.by('day')){
-                        const day = dayObj.format('MMMM D, YYYY');
+                        const day = dayObj.format(DateFormat);
                         if(!colors.hasOwnProperty(title)){
                             console.log("missing", title);
                         }
@@ -131,8 +131,8 @@ class Calendar extends React.Component {
     render(){
         const allDays = this.computeDays();
 
-        const sd = moment(this.props.startDate, 'MMMM D, YYYY');
-        const ed = moment(this.props.endDate, 'MMMM D, YYYY');
+        const sd = moment(this.props.startDate, DateFormat);
+        const ed = moment(this.props.endDate, DateFormat);
 
         const wy = moment.range(sd, ed);
         let months = []
