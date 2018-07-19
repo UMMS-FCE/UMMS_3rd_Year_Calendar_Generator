@@ -2,13 +2,11 @@ import React from 'react'
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import { Container, Segment, Message, Grid, Header, Button, Table } from 'semantic-ui-react';
+import { Segment, Grid, Header, Button, Table } from 'semantic-ui-react';
 
 import * as Actions from './actions';
 import { getArrayOfWeeks, isFamilyTheme, DateFormat } from './utils';
 
-import jsPDF from 'jspdf';
-import html2canvas from 'html2canvas';
 import html2pdf from 'html2pdf.js';
 
 // for date manipulation
@@ -134,7 +132,7 @@ class Calendar extends React.Component {
 
     makePDF = () => {
         const d = this.refs.cal;
-        var opt = {
+        const opt = {
             margin:       0.25,
             filename:     'calendar.pdf',
             image:        { type: 'jpeg', quality: 0.98 },
@@ -143,10 +141,10 @@ class Calendar extends React.Component {
                             orientation: 'landscape' }
         };
 
-        const worker = html2pdf().from(d).set(opt).save()
-              .then(done => {
-                  this.loader = false;
-              });
+        html2pdf().from(d).set(opt).save()
+            .then(done => {
+                this.loader = false;
+            });
     }
 
     render(){
@@ -158,10 +156,19 @@ class Calendar extends React.Component {
         const wy = moment.range(sd, ed);
         let months = []
 
-        for (let monthObj of wy.by('month')) {
+        for (const monthObj of wy.by('month')) {
             months.push(<Month monthObj={monthObj}
                         key={monthObj.format('MM-YYYY')}
                         allDays={allDays} />);
+        }
+
+        let a = []
+        for(const [idx, month] of months.entries()){
+            if(idx > 0 && 0 === idx % 6){
+                a.push(<div className="html2pdf__page-break"
+                            key={[idx, 'page']} />);
+            }
+            a.push(month);
         }
 
         return (
@@ -180,8 +187,10 @@ class Calendar extends React.Component {
                   </Grid.Column>
                 </Grid.Row>
               </Grid>
-              <Grid stackable columns={3}>
-                {months}
+              <Grid columns={3}>
+                <Grid.Row>
+                  {a}
+                </Grid.Row>
               </Grid>
             </div>
         );
