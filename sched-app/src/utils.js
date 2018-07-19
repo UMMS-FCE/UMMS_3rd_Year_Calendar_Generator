@@ -1,12 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 import 'react-dates/initialize';
 import { DateRangePicker, SingleDatePicker } from 'react-dates';
 import 'react-dates/lib/css/_datepicker.css';
 import './react_dates_overrides.css';
-
-import jsPDF from 'jspdf';
-import html2canvas from 'html2canvas';
 
 // for date manipulation
 import Moment from 'moment';
@@ -57,43 +54,6 @@ export class DateRangeSelect extends React.Component {
               onFocusChange={focusedInput => this.setState({ focusedInput })}
               />
         );
-    }
-}
-
-export const makePDF = (input) => {
-    // from https://stackoverflow.com/a/45017234
-    html2canvas(input)
-        .then((canvas) => {
-            const imgData = canvas.toDataURL('image/png');
-            const pdf = new jsPDF();
-            pdf.addImage(imgData, 'JPEG', 0, 0);
-            // pdf.output('dataurlnewwindow');
-            pdf.save("download.pdf");
-        });
-}
-
-export class Export extends Component {
-    // from https://stackoverflow.com/a/45017234
-    printDocument() {
-        const input = document.getElementById('divToPrint');
-        makePDF(input);
-    }
-
-    render() {
-        return (
-            <div>
-              <div id="divToPrint" className="mt4"
-                   style={{
-                       backgroundColor: '#f5f5f5',
-                       width: '210mm',
-                       minHeight: '297mm',
-                       marginLeft: 'auto',
-                       marginRight: 'auto'
-                   }}>
-                <div>Note: Here the dimensions of div are same as A4</div>
-                <div>You Can add any component here</div>
-              </div>
-            </div>);
     }
 }
 

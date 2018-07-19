@@ -132,6 +132,16 @@ class Calendar extends React.Component {
     }
 
     makePDF = () => {
+        // from https://stackoverflow.com/a/45017234
+
+        // const style = {
+        //     backgroundColor: '#f5f5f5',
+        //     width: '210mm',
+        //     minHeight: '297mm',
+        //     marginLeft: 'auto',
+        //     marginRight: 'auto'
+        // };
+
         const d = this.refs.cal;
         html2canvas(d)
         .then((canvas) => {
