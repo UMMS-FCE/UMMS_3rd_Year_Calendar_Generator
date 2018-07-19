@@ -2,7 +2,7 @@ import React from 'react'
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import { Segment, Grid, Header, Button, Table } from 'semantic-ui-react';
+import { Segment, Grid, Header, Button, Table, Popup } from 'semantic-ui-react';
 
 import * as Actions from './actions';
 import { getArrayOfWeeks, isFamilyTheme, DateFormat } from './utils';
@@ -32,23 +32,33 @@ class Week extends React.Component {
 
             const tdStyle = {};
             const dayStr = day.format(DateFormat);
+            let shortTitle = '';
             let title = '';
             if(allDays.hasOwnProperty(dayStr)){
                 if(inThisMonth){
                     tdStyle["backgroundColor"] = allDays[dayStr].color;
                 }
-                title = allDays[dayStr].title.slice(0, 7);
+                title = allDays[dayStr].title;
+                shortTitle = title.slice(0, 7);
             }
 
-            a.push(
-                <Table.Cell style={tdStyle} key={day.format('MMDD')} >
+            const key = day.format('MMDD');
+            const td = (
+                <Table.Cell style={tdStyle} key={key} >
                   <div style={textStyle}>
                     {dayNum}
                   </div>
                   <span style={textStyle}>
-                    {title}
+                    {shortTitle}
                   </span>
                 </Table.Cell>);
+            a.push(
+                <Popup
+                  key={key}
+                  trigger={td}
+                  content={title}
+                  header={day.format(DateFormat)}
+                  />);
         }
 
         return (
