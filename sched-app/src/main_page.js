@@ -23,6 +23,7 @@ class ChooseStartDate extends React.Component {
               <Message.Content>
                 <Message.Header>Pick Start Date</Message.Header>
 		Pick first day of rotations (not including transition course)
+                <br />
                 <StartDateSelect />
               </Message.Content>
             </Message>
@@ -37,6 +38,7 @@ class ChooseEndDate extends React.Component {
               <Message.Content>
                 <Message.Header>Pick End Date</Message.Header>
 		Pick last day of rotations (not including transition course)
+                <br />
                 <EndDateSelect />
               </Message.Content>
             </Message>
