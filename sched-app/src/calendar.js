@@ -43,7 +43,11 @@ class Week extends React.Component {
                 theme = allDays[dayStr].theme;
                 rotation = allDays[dayStr].rotation;
                 title = allDays[dayStr].title;
+
                 shortTitle = title.slice(0, 7);
+                if(rotation){
+                    shortTitle = rotation.slice(0, 7);
+                }
             }
 
             const key = day.format('MMDD');
@@ -135,14 +139,18 @@ class Calendar extends React.Component {
                 theme = 'FCE';
             }
 
-            for(const [blockIdx, e] of block.entries()){
-                const rotation = '';
-                if(theme && 'FCE' !== theme){
-                    rotation = this.props.rotationsByTheme[theme][blockIdx];
-                }
+            for(const e of block){
                 const title = e[0];
                 const dates = e[1];
                 const color = colors[title];
+
+                let rotation = '';
+                const blockIdx = ['A block', 'B block', 'C block'].indexOf(title);
+                if(theme && blockIdx >= 0){
+                    rotation = this.props.rotationsByTheme[theme][blockIdx];
+                } else if ('FCE' === theme){
+                    rotation = 'FCE';
+                }
 
                 if(1 === dates.length){
                     if(!colors.hasOwnProperty(title)){
