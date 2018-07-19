@@ -15,3 +15,7 @@ All default dates can be directly edited in:
 
 https://github.com/UMMS-FCE/UMMS_3rd_Year_Calendar_Generator/blob/master/constants.json
 
+URL:
+Current calendar app is available at:
+
+https://umms-fce.github.io/UMMS_3rd_Year_Calendar_Generator/
