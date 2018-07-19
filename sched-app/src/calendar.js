@@ -30,16 +30,21 @@ class Week extends React.Component {
 
             const tdStyle = {};
             const dayStr = day.format(DateFormat);
+            let title = '';
             if(allDays.hasOwnProperty(dayStr)){
                 if(inThisMonth){
-                    tdStyle["backgroundColor"] = allDays[dayStr];
+                    tdStyle["backgroundColor"] = allDays[dayStr].color;
                 }
+                title = allDays[dayStr].title.slice(0, 7);
             }
 
             a.push(
                 <Table.Cell style={tdStyle} key={day.format('MMDD')} >
-                  <span style={textStyle}>
+                  <div style={textStyle}>
                     {dayNum}
+                  </div>
+                  <span style={textStyle}>
+                    {title}
                   </span>
                 </Table.Cell>);
         }
@@ -74,7 +79,7 @@ class Month extends React.Component {
                 <Header as="h2">
                   {month}{" "}{year}
                 </Header>
-                <Table compact={"very"}>
+                <Table fixed compact={"very"}>
                   <Table.Body>
                     {a}
                   </Table.Body>
@@ -110,7 +115,8 @@ class Calendar extends React.Component {
                     if(!colors.hasOwnProperty(title)){
                         console.log("missing", title);
                     }
-                    allDays[dates[0]] = colors[title];
+                    allDays[dates[0]] = { color: colors[title],
+                                          title: title };
                 } else {
                     const s = moment(dates[0], DateFormat);
                     const e = moment(dates[1], DateFormat);
@@ -121,7 +127,8 @@ class Calendar extends React.Component {
                         if(!colors.hasOwnProperty(title)){
                             console.log("missing", title);
                         }
-                        allDays[day] = colors[title];
+                        allDays[day] = { color: colors[title],
+                                         title: title };
                     }
                 }
             }
@@ -138,7 +145,7 @@ class Calendar extends React.Component {
             image:        { type: 'jpeg', quality: 0.98 },
             html2canvas:  { scale: 1 },
             jsPDF:        { unit: 'in', format: 'letter',
-                            orientation: 'landscape' }
+                            orientation: 'portrait' }
         };
 
         html2pdf().from(d).set(opt).save()
@@ -164,15 +171,15 @@ class Calendar extends React.Component {
 
         let a = []
         for(const [idx, month] of months.entries()){
-            if(idx > 0 && 0 === idx % 6){
+            if(idx > 0 && 0 === idx % 4){
                 a.push(<div className="html2pdf__page-break"
-                            key={[idx, 'page']} />);
+                       key={[idx, 'page']} />);
             }
             a.push(month);
         }
 
         return (
-            <div ref="cal">
+            <div>
               <Grid>
                 <Grid.Row>
                   <Grid.Column width={1}>
@@ -187,11 +194,14 @@ class Calendar extends React.Component {
                   </Grid.Column>
                 </Grid.Row>
               </Grid>
-              <Grid columns={3}>
-                <Grid.Row>
-                  {a}
-                </Grid.Row>
-              </Grid>
+
+              <div ref="cal">
+                <Grid columns={2}>
+                  <Grid.Row>
+                    {a}
+                  </Grid.Row>
+                </Grid>
+              </div>
             </div>
         );
     }
