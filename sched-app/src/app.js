@@ -8,16 +8,23 @@ import './app.css';
 
 import MainPage from './main_page';
 
-const appReducer = combineReducers({
-    main: reducers,
-});
+class App extends React.Component {
+    constructor(props) {
+        super(props);
 
-let store = createStore(appReducer, {}, applyMiddleware(thunkMiddleware));
+        this.appReducer = combineReducers({
+            main: reducers(props.constants), });
+        this.store = createStore(this.appReducer, {},
+                                 applyMiddleware(thunkMiddleware));
+    }
 
-const App = () => (
-    <Provider store={ store }>
-      <MainPage />
-    </Provider>
-);
+    render(){
+        return (
+            <Provider store={ this.store }>
+              <MainPage />
+            </Provider>
+        );
+    }
+}
 
 export default App;

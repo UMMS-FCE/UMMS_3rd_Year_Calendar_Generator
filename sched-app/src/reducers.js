@@ -1,8 +1,6 @@
 import * as Actions from './actions';
 
-import * as Constants from './constants.json';
-
-const initial_state = {
+const initial_state = (constants) => ({
 
     thematic_section_order: '',
     themes: ['', '', ''],
@@ -15,10 +13,11 @@ const initial_state = {
                        Surgery: ['', '', ''],
                        Medicine: ['', '', '']},
 
-    ...Constants
-};
+    ...constants
+});
 
-export const reducers = (state = initial_state, action) => {
+export const reducers = (constants) => (state = initial_state(constants),
+                                        action) => {
     switch (action.type){
     case Actions.SET_START_DATE:
         return {...state, startDate: action.startDate };
