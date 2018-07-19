@@ -29,7 +29,9 @@ class Week extends React.Component {
             const tdStyle = {};
             const dayStr = day.format('MMMM D, YYYY');
             if(allDays.hasOwnProperty(dayStr)){
-                tdStyle["backgroundColor"] = allDays[dayStr];
+                if(inThisMonth){
+                    tdStyle["backgroundColor"] = allDays[dayStr];
+                }
             }
 
             a.push(
@@ -140,7 +142,6 @@ class Calendar extends React.Component {
 
     render(){
         const allDays = this.computeDays();
-        console.log(allDays);
 
         const sd = moment(this.props.startDate, 'MMMM D, YYYY');
         const ed = moment(this.props.endDate, 'MMMM D, YYYY');
