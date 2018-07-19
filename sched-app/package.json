@@ -1,6 +1,6 @@
 {
   "name": "my-app",
-  "homepage": "http://users.wenglab.org/purcarom/fce",
+    "homepage": "https://raw.githubusercontent.com/UMMS-FCE/UMMS_3rd_Year_Calendar_Generator/master/sched-app/build/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
