@@ -2,10 +2,13 @@ import React from 'react'
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import { Message, Grid, Header } from 'semantic-ui-react';
+import { Message, Grid, Header, Button } from 'semantic-ui-react';
 
 import * as Actions from './actions';
 import { getArrayOfWeeks, isFamilyTheme, DateFormat } from './utils';
+
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
 
 // for date manipulation
 import Moment from 'moment';
@@ -128,6 +131,18 @@ class Calendar extends React.Component {
         return allDays;
     }
 
+    makePDF = () => {
+        const d = this.refs.cal;
+        html2canvas(d)
+        .then((canvas) => {
+            const imgData = canvas.toDataURL('image/png');
+            const pdf = new jsPDF();
+            pdf.addImage(imgData, 'JPEG', 0, 0);
+            // pdf.output('dataurlnewwindow');
+            pdf.save("download.pdf");
+        });
+    }
+
     render(){
         const allDays = this.computeDays();
 
@@ -144,10 +159,23 @@ class Calendar extends React.Component {
         }
 
         return (
-            <Grid container columns={5}>
-              <Header as="h2">{this.props.thematic_section_order}</Header>
-              {months}
-            </Grid>
+            <div ref="cal">
+              <Grid>
+                <Grid.Row>
+                  <Grid.Column width={1}>
+                    <Button onClick={() => { this.makePDF() }}>PDF</Button>
+                  </Grid.Column>
+                  <Grid.Column width={6}>
+                    <Header as="h2" block={false}>
+                      {this.props.thematic_section_order}
+                    </Header>
+                    </Grid.Column>
+                </Grid.Row>
+              </Grid>
+              <Grid container columns={5}>
+                {months}
+              </Grid>
+            </div>
         );
     }
 }

@@ -60,27 +60,28 @@ export class DateRangeSelect extends React.Component {
     }
 }
 
+export const makePDF = (input) => {
+    // from https://stackoverflow.com/a/45017234
+    html2canvas(input)
+        .then((canvas) => {
+            const imgData = canvas.toDataURL('image/png');
+            const pdf = new jsPDF();
+            pdf.addImage(imgData, 'JPEG', 0, 0);
+            // pdf.output('dataurlnewwindow');
+            pdf.save("download.pdf");
+        });
+}
+
 export class Export extends Component {
     // from https://stackoverflow.com/a/45017234
     printDocument() {
         const input = document.getElementById('divToPrint');
-        html2canvas(input)
-            .then((canvas) => {
-                const imgData = canvas.toDataURL('image/png');
-                const pdf = new jsPDF();
-                pdf.addImage(imgData, 'JPEG', 0, 0);
-                // pdf.output('dataurlnewwindow');
-                pdf.save("download.pdf");
-            })
-        ;
+        makePDF(input);
     }
 
     render() {
         return (
             <div>
-              <div className="mb5">
-                <button onClick={this.printDocument}>Print</button>
-              </div>
               <div id="divToPrint" className="mt4"
                    style={{
                        backgroundColor: '#f5f5f5',
