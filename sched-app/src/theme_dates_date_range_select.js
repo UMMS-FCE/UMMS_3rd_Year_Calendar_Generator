@@ -2,7 +2,7 @@ import React from 'react'
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import { Grid, Header } from 'semantic-ui-react';
+import { Grid, Header, Checkbox } from 'semantic-ui-react';
 
 import { DateRangeSelect } from './utils';
 import * as Actions from './actions';
@@ -15,15 +15,19 @@ class NamedDateRangeSelect extends React.Component {
         return (
             <Grid.Row>
               <Grid.Column width={1}>
-                <Header as="h4" color="red">{title}</Header>
+		{this.props.checkbox &&
+		 <Checkbox defaultChecked onChange={this.props.onCheck} />}
+                <Header as="h4" color="red" block={false}>{title}</Header>
               </Grid.Column>
 
-              <DateRangeSelect dates={dates}
-                               onChange={(d) => {
-                                   this.props.actions.setDates(this.props.block,
-                                                               this.props.idx,
-                                                               title, d)
-                }} />
+	      <Grid.Column>
+		<DateRangeSelect dates={dates}
+				 onChange={(d) => {
+                                     this.props.actions.setDates(this.props.block,
+								 this.props.idx,
+								 title, d)
+                  }} />
+	      </Grid.Column>
 
             </Grid.Row>
         );

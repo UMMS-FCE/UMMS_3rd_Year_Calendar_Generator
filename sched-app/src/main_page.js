@@ -92,19 +92,19 @@ class TabFceDates extends React.Component {
                 <Grid.Row>
                   { !isFamilyTheme(themes[0]) &&
                       <Grid.Column width={4}>
-                            <ThemeDates block={"fces1"}
+                            <ThemeDates block={"fces1"} checkbox={true}
                                             theme={"Theme 1 FCE weeks"}/>
                           </Grid.Column>
                       }
                       { !isFamilyTheme(themes[1]) &&
                           <Grid.Column width={4}>
-                                <ThemeDates block={"fces2"}
+                                <ThemeDates block={"fces2"} checkbox={true}
                                                 theme={"Theme 2 FCE weeks"}/>
                               </Grid.Column>
                           }
                           { !isFamilyTheme(themes[2]) &&
                               <Grid.Column width={4}>
-                                    <ThemeDates block={"fces3"}
+                                    <ThemeDates block={"fces3"} checkbox={true}
                                                     theme={"Theme 3 FCE weeks"}/>
                                   </Grid.Column>
                               }

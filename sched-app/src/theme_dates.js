@@ -11,23 +11,31 @@ import * as Actions from './actions';
 class ThemeDates extends React.Component {
     render(){
         let a = [];
+		
         for(const [idx, date] of this.props.dates.entries()){
             const title = date[0];
             const dateOrDates = date[1];
+
             if(2 === dateOrDates.length){
-                let c = (<NamedDateRangeSelect key={[idx, title]}
+                let c = (<NamedDateRangeSelect
+			 checkbox={this.props.checkbox}
                          title={title}
                          block={this.props.block}
-                         idx={idx}
-                         />);
-                a.push(c);
+                         idx={idx} />);
+                a.push((
+		    <span key={[idx, title]}>
+		      {c}
+		    </span>));
             } else {
-                let c = (<NamedDateSelect key={[idx, title]}
+                let c = (<NamedDateSelect 
+			 checkbox={this.props.checkbox}
                          title={title}
                          block={this.props.block}
-                         idx={idx}
-                         />);
-                a.push(c);
+                         idx={idx} />);
+		a.push((
+		    <span key={[idx, title]}>
+		      {c}
+		    </span>));
             }
         }
 
