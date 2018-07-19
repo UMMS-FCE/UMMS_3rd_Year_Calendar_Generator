@@ -14,6 +14,8 @@ import Moment from 'moment';
 import { extendMoment } from 'moment-range';
 const moment = extendMoment(Moment);
 
+const MonthsPerPage = 4;
+
 class Week extends React.Component {
     render(){
         const {month, weekObj, allDays} = this.props;
@@ -171,7 +173,7 @@ class Calendar extends React.Component {
 
         let a = []
         for(const [idx, month] of months.entries()){
-            if(idx > 0 && 0 === idx % 4){
+            if(idx > 0 && 0 === idx % MonthsPerPage){
                 a.push(<div className="html2pdf__page-break"
                        key={[idx, 'page']} />);
             }
