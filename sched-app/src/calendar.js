@@ -2,7 +2,7 @@ import React from 'react'
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import { Message, Grid } from 'semantic-ui-react';
+import { Message, Grid, Header } from 'semantic-ui-react';
 
 import * as Actions from './actions';
 import { getArrayOfWeeks, isFamilyTheme, DateFormat } from './utils';
@@ -145,6 +145,7 @@ class Calendar extends React.Component {
 
         return (
             <Grid container columns={5}>
+              <Header as="h2">{this.props.thematic_section_order}</Header>
               {months}
             </Grid>
         );
@@ -162,6 +163,7 @@ const mapStateToProps = (state, props) => ({
     fces3: state.main.fces3,
     colors: state.main.colors,
     themes: state.main.themes,
+    thematic_section_order: state.main.thematic_section_order,
 });
 const mapDispatchToProps = (dispatch) => ({
     actions: bindActionCreators(Actions, dispatch),
