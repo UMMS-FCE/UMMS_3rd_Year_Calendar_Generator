@@ -19,3 +19,6 @@ URL:
 Current calendar app is available at:
 
 https://umms-fce.github.io/UMMS_3rd_Year_Calendar_Generator/
+
+R version:
+https://nickjhathaway.shinyapps.io/UMMS_3rd_Year_Calendar_Generator/
