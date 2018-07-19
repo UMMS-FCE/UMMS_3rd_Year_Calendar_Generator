@@ -58,15 +58,9 @@ class Week extends React.Component {
                 </Table.Cell>);
             const popup = (
                 <div>
-                  <div>
-                    {theme}
-                  </div>
-                  <div>
-                    {rotation}
-                  </div>
-                  <div>
-                    {title}
-                  </div>
+                  <div>{theme}</div>
+                  <div>{rotation}</div>
+                  <div>{title}</div>
                 </div>);
             a.push(
                 <Popup
@@ -136,11 +130,14 @@ class Calendar extends React.Component {
         }
 
         for(const [idx, block] of blocks.entries()){
-            const theme = themes[idx];
+            let theme = themes[idx];
+            if(idx > 2){
+                theme = 'FCE';
+            }
 
             for(const [blockIdx, e] of block.entries()){
                 const rotation = '';
-                if(theme){
+                if(theme && 'FCE' !== theme){
                     rotation = this.props.rotationsByTheme[theme][blockIdx];
                 }
                 const title = e[0];
